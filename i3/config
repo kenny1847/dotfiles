@@ -1,0 +1,314 @@
+###############################
+# START AT BOOT 
+###############################
+
+exec --no-startup-id i3-msg 'exec /opt/Telegram/Telegram; exec pidgin'
+
+
+###############################
+# VARIABLES
+###############################
+
+# Set shortnames to Modifers
+# Alt
+set $m1 Mod1
+# Num Lock
+set $m2 Mod2
+# ---
+set $m3 Mod3
+# WinKey/Super
+set $m4 Mod4
+# Mode_Switch
+set $m5 Mod5
+
+# Set vim-like navigation
+set $up     k
+set $down   j
+set $left   h
+set $right  l
+
+# Set workspaces names
+set $ws0 0:dev
+set $ws1 1:term
+set $ws2 2:www
+set $ws3 3:im
+set $ws4 4:misc
+set $ws5 5:screen
+set $ws6 6:build
+set $ws7 7:xmpp
+set $ws8 8:other
+
+# Set workspaces outputs
+workspace $ws0 output HDMI2
+workspace $ws1 output HDMI2
+workspace $ws2 output HDMI1
+workspace $ws3 output HDMI1
+workspace $ws4 output HDMI1
+workspace $ws5 output HDMI2
+workspace $ws6 output HDMI2
+workspace $ws7 output HDMI1
+workspace $ws8 output HDMI1
+
+###############################
+# NAVIGATION
+###############################
+
+# Change focus
+bindsym $m4+$left          focus  left
+bindsym $m4+$down          focus  down
+bindsym $m4+$up            focus  up
+bindsym $m4+$right         focus  right
+
+# Move focused window
+bindsym $m4+Shift+$left    move   left
+bindsym $m4+Shift+$down    move   down
+bindsym $m4+Shift+$up      move   up
+bindsym $m4+Shift+$right   move   right
+
+
+
+###############################
+# CONTAINERS MODES
+###############################
+
+# Split in horizontal orientation
+bindsym $m4+b split h
+
+# Split in vertical orientation
+bindsym $m4+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $m4+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $m4+s layout stacking
+bindsym $m4+w layout tabbed
+bindsym $m4+e layout toggle split
+
+# Toggle tiling/floating
+bindsym $m4+Shift+space floating toggle
+
+# Change focus between tiling/floating windows
+bindsym $m4+space focus mode_toggle
+
+# use Mouse+Mod1 to drag floating windows to their wanted position
+floating_modifier $m4
+
+# Focus the parent container
+bindsym $m4+a focus parent
+
+# Focus the child container
+bindsym $m4+x focus child
+
+# Move the currently focused window to the scratchpad
+bindsym $m4+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $m4+minus scratchpad show
+
+
+
+###############################
+# WORKSPACES
+###############################
+
+
+# Switch to workspace
+bindsym $m4+grave workspace $ws0
+bindsym $m4+1     workspace $ws1
+bindsym $m4+2     workspace $ws2
+bindsym $m4+3     workspace $ws3
+bindsym $m4+4     workspace $ws4
+bindsym $m4+F1    workspace $ws5
+bindsym $m4+F2    workspace $ws6
+bindsym $m4+F3    workspace $ws7
+bindsym $m4+F4    workspace $ws8
+
+# Move focused container to workspace
+bindsym $m4+Shift+grave move container to workspace  $ws0
+bindsym $m4+Shift+1     move container to workspace  $ws1
+bindsym $m4+Shift+2     move container to workspace  $ws2
+bindsym $m4+Shift+3     move container to workspace  $ws3
+bindsym $m4+Shift+4     move container to workspace  $ws4
+bindsym $m4+Shift+F1    move container to workspace  $ws5
+bindsym $m4+Shift+F2    move container to workspace  $ws6
+bindsym $m4+Shift+F3    move container to workspace  $ws7
+bindsym $m4+Shift+F4    move container to workspace  $ws8
+
+
+
+###############################
+# RESIZE MODE
+###############################
+
+# TURN ON RESIZE MODE
+bindsym $m4+r mode "resize"
+
+# RESIZE RULES
+mode "resize" {
+	# Pressing left will shrink the window’s width.
+	# Pressing right will grow the window’s width.
+	# Pressing up will shrink the window’s height.
+	# Pressing down will grow the window’s height.
+	bindsym $left       resize shrink width 5 px or 5 ppt
+	bindsym $right      resize grow width 5 px or 5 ppt
+	bindsym $down       resize grow height 5 px or 5 ppt
+	bindsym $up         resize shrink height 5 px or 5 ppt
+	
+	# same bindings, but for the arrow keys
+	bindsym Left        resize shrink width 5 px or 5 ppt
+	bindsym Right       resize grow width 5 px or 5 ppt
+	bindsym Down        resize grow height 5 px or 5 ppt
+	bindsym Up          resize shrink height 5 px or 5 ppt
+	
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+
+
+###############################
+# Font
+###############################
+
+font pango: M+ 2m 12
+
+
+###############################
+# CONTAINER BORDERS
+###############################
+
+new_float  pixel 1
+new_window pixel 1
+
+
+###############################
+# COLOR FOR CONTAINERS
+###############################
+
+#                       border  backgr. text    indicator
+client.unfocused        #404040 #2D2C28 #9B9696 #2D2C28
+client.focused_inactive #2D2C28 #20403A #F9F9F9 #2D2C28
+client.focused          #408075 #408075 #131314 #408075
+client.urgent           #73ADA5 #73ADA5 #131314 #8ABEB7
+
+
+
+###############################
+# i3 BAR
+###############################
+
+bar 
+{
+	tray_output             HDMI1
+	position                top
+	strip_workspace_numbers yes
+	status_command          i3status
+	colors {
+		background #131314
+		statusline #9B9696
+		separator  #131314
+		#                  border  backgr. text
+		focused_workspace  #131314 #131314 #408075
+		inactive_workspace #131314 #131314 #9B9696
+		urgent_workspace   #131314 #131314 #9B9696
+		}
+}
+
+
+###############################
+# KEYBINDINGS
+###############################
+
+#
+# BASIC
+#
+
+# Reload the configuration file
+bindsym $m4+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $m4+Shift+r restart
+
+# Lock i3 
+bindsym $m4+Shift+w exec "lock"
+
+# Exit i3 (logs you out of your X session)
+bindsym $m4+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Run Terminal
+bindsym $m4+Return exec urxvt
+
+# Kill container
+bindsym $m4+q kill
+
+# Run dmenu
+bindsym $m4+p exec dmenu_run -fn "M+ 2m:size=12" -nb "#131314" -nf "#9B9696" -sb "#131314" -sf "#408075"
+
+#
+# AUDIO
+#
+
+# Volume Mute
+
+# Volume Up
+bindsym XF86AudioRaiseVolume exec amixer set Master 4+
+
+# Volume Down
+bindsym XF86AudioLowerVolume exec amixer set Master 4-
+
+# Play music
+bindsym XF86AudioPlay        exec mpc toggle
+                             
+# Stop music                 
+bindsym XF86AudioStop        exec mpc stop
+                             
+# Next track                 
+bindsym XF86AudioNext        exec mpc next 
+                             
+# Previous track             
+bindsym XF86AudioPrev        exec mpc prev
+
+#
+# BACKLIGHT
+#
+
+# Backlight Up
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 10
+# Backlight Down
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+
+#
+# CUSTOM
+#
+
+# Take a Screenshot
+bindsym Print                          exec "scrot -e 'mv $f ~/Screenshots/'"
+bindsym --release Shift+Print          exec "scrot --select -e 'mv $f ~/Screenshots/'"
+# Same binding but for external keyboard
+bindsym XF86Favorites                  exec "scrot -e 'mv $f ~/Screenshots/'"
+bindsym --release Shift+XF86Favorites  exec "scrot --select -e 'mv $f ~/Screenshots/'"
+
+# Run Telegram
+bindsym $m4+T exec /opt/Telegram/Telegram; workspace $ws3
+
+
+
+###############################
+# CUSTOM CONTAINERS PREFERENCES
+###############################
+
+assign [class="jetbrains-clion"]           → $ws0
+assign [class="chromium-browser-chromium"] → $ws2
+assign [class="chromium-browser"]          → $ws2
+assign [class="Telegram"]                  → $ws3
+assign [title="ncmpcpp"]                   → $ws4
+assign [class="Pidgin"]                    → $ws7
+assign [class="Slack*"]                    → $ws8
+
+
+for_window [window_role="pop-up"]       floating enable
+for_window [window_role="task_dialog"]  floating enable

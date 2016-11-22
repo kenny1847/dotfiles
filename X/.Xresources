@@ -1,0 +1,63 @@
+! --------------------------------------------------------------------------------
+! xft settings
+! --------------------------------------------------------------------------------
+Xft*autohint: 0
+Xft*antialias: 1
+Xft*hinting: 1
+Xft*hintstyle: hintslight
+Xft*dpi: 96
+Xft*rgba: rgb
+Xft*lcdfilter: lcddefault
+
+! --------------------------------------------------------------------------------
+! Xterm settings
+! --------------------------------------------------------------------------------
+xterm*saveLines: 500000
+xterm*faceName: Terminus:style=Regular:size=14
+xterm*fullscreen: never
+xterm*utf8: 1
+xterm*cursorBlink: true
+
+! --------------------------------------------------------------------------------
+! urxvt settings
+! --------------------------------------------------------------------------------
+ URxvt.jumpScroll: false
+ URxvt.font: xft:Terminus:size=14
+ URxvt.scrollBar: false
+ URxvt.scrollTtyOutput: false
+ URxvt.scrollWithBuffer: true
+ URxvt.scrollTtyKeypress: true
+ URxvt.internalBorder: 0 
+ URxvt.externalBorder: 0
+ URxvt.borderLess: false 
+ URxvt.cursorUnderline: false
+ URxvt.url-launcher: chromium
+ URxvt.cursorBlink: true
+ URxvt.saveLines: 500000
+ URxvt.lineSpace: 0
+ URxvt.letterSpace: 0
+
+! --------------------------------------------------------------------------------
+! terminal colors
+! --------------------------------------------------------------------------------
+*background:   #1c1c1c
+*foreground:   #d0d0d0 
+*color0:       #4e4e4e
+*color1:       #d68787 
+*color2:       #5f865f
+*color3:       #d8af5f
+*color4:       #85add4
+*color5:       #d7afaf
+*color6:       #87afaf
+*color7:       #d0d0d0
+*color8:       #626262
+*color9:       #d75f87
+*color10:      #87af87
+*color11:      #ffd787 
+*color12:      #add4fb
+*color13:      #ffafaf
+*color14:      #87d7d7
+*color15:      #e4e4e4
+*cursorColor:  #d0d0d0
+*cursorColor2: #3a3a3a
+*colorBD:      #e4e4e4
