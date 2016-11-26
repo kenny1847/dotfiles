@@ -2,28 +2,21 @@
 setxkbmap -layout us,ru -option grp:alt_shift_toggle -option ctrl:nocaps -option compose:ralt &
 kbdd &
 
+# Load ~/.Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+
+# Turn off touchpad while typing for 1 sec after last keypress
+syndaemon -i 1 -d -K
+
 # Multihead
 xrandr --output HDMI2 --auto --output HDMI1 --auto --right-of HDMI2 &
 
-# XResources
-xrdb -merge ~/.Xresources &
+# NVIDIA specific
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
 
-# RXVT Deamon
-#urxvtd -q -o -f &
+# Set background image
+sh ~/.fehbg &
 
-# Background
-. ~/.fehbg &
-
-session=${1:-i3}
-
-case $session in
-	dwm)
-		#Fix JVM apps
-		wmname LG3D &
-		dwmstatus &
-		dwm
-		;;
-	i3)
-		i3
-		;;
-esac
+# Run WM
+i3
