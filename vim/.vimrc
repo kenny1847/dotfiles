@@ -81,12 +81,12 @@ function! SwitchSourceHeader()
 	endif
 endfunction
 
-" 121-symbol column highlight
+" 81-symbol column highlight
 let g:column_highlight = 0
 function! SwitchColumnHighlight()
 	if (g:column_highlight == 0)
 		let g:column_highlight = 1
-		set colorcolumn=121
+		set colorcolumn=81
 	else 
 		let g:column_highlight = 0
 		set colorcolumn=0
