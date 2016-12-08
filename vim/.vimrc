@@ -26,6 +26,9 @@ set modeline
 set modelines=5
 set foldlevel=4
 
+set list
+set listchars=tab:>-,trail:~,extends:>,precedes:<
+
 "
 " PLUGINS
 "
