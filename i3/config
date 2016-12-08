@@ -1,8 +1,8 @@
 ###############################
-# START AT BOOT 
+# START AT BOOT
 ###############################
 
-exec --no-startup-id i3-msg 'exec /opt/Telegram/Telegram; exec pidgin'
+exec --no-startup-id i3-msg 'workspace $ws0; exec /opt/Telegram/Telegram'
 
 
 ###############################
@@ -155,13 +155,13 @@ mode "resize" {
 	bindsym $right      resize grow width 5 px or 5 ppt
 	bindsym $down       resize grow height 5 px or 5 ppt
 	bindsym $up         resize shrink height 5 px or 5 ppt
-	
+
 	# same bindings, but for the arrow keys
 	bindsym Left        resize shrink width 5 px or 5 ppt
 	bindsym Right       resize grow width 5 px or 5 ppt
 	bindsym Down        resize grow height 5 px or 5 ppt
 	bindsym Up          resize shrink height 5 px or 5 ppt
-	
+
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -173,7 +173,7 @@ mode "resize" {
 # Font
 ###############################
 
-font pango: M+ 2m 12
+font pango: Open Sans 12
 
 
 ###############################
@@ -200,7 +200,7 @@ client.urgent           #73ADA5 #73ADA5 #131314 #8ABEB7
 # i3 BAR
 ###############################
 
-bar 
+bar
 {
 	tray_output             HDMI1
 	position                top
@@ -232,7 +232,7 @@ bindsym $m4+Shift+c reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $m4+Shift+r restart
 
-# Lock i3 
+# Lock i3
 bindsym $m4+Shift+w exec "lock"
 
 # Exit i3 (logs you out of your X session)
@@ -245,7 +245,7 @@ bindsym $m4+Return exec urxvt
 bindsym $m4+q kill
 
 # Run dmenu
-bindsym $m4+p exec dmenu_run -fn "M+ 2m:size=12" -nb "#131314" -nf "#9B9696" -sb "#131314" -sf "#408075"
+bindsym $m4+p exec dmenu_run -fn "Open Sans:size=12" -nb "#131314" -nf "#9B9696" -sb "#131314" -sf "#408075"
 
 #
 # AUDIO
@@ -261,14 +261,14 @@ bindsym XF86AudioLowerVolume exec amixer set Master 4-
 
 # Play music
 bindsym XF86AudioPlay        exec mpc toggle
-                             
-# Stop music                 
+
+# Stop music
 bindsym XF86AudioStop        exec mpc stop
-                             
-# Next track                 
+
+# Next track
 bindsym XF86AudioNext        exec mpc next 
-                             
-# Previous track             
+
+# Previous track
 bindsym XF86AudioPrev        exec mpc prev
 
 #
@@ -302,8 +302,7 @@ bindsym $m4+T exec /opt/Telegram/Telegram; workspace $ws3
 ###############################
 
 assign [class="jetbrains-clion"]           → $ws0
-assign [class="chromium-browser-chromium"] → $ws2
-assign [class="chromium-browser"]          → $ws2
+assign [window_role="browser"]             → $ws2
 assign [class="Telegram"]                  → $ws3
 assign [title="ncmpcpp"]                   → $ws4
 assign [class="Pidgin"]                    → $ws7
