@@ -63,7 +63,7 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 "
 " CUSTOM
-" 
+"
 
 " Source-Header Toggle
 let g:source_header_switch = 1
@@ -76,7 +76,7 @@ function! SwitchSourceHeader()
 		find %:t:r.h
 	elseif g:source_header_switch == 1
 		find %:t:r.cpp
-	else 
+	else
 		find %:t:r.c
 	endif
 endfunction
@@ -87,7 +87,7 @@ function! SwitchColumnHighlight()
 	if (g:column_highlight == 0)
 		let g:column_highlight = 1
 		set colorcolumn=81
-	else 
+	else
 		let g:column_highlight = 0
 		set colorcolumn=0
 	endif
