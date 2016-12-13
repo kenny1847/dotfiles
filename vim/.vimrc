@@ -24,7 +24,7 @@ set noexpandtab
 
 set modeline
 set modelines=5
-set foldlevel=4
+set foldlevel=5
 
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -38,15 +38,13 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'junegunn/seoul256.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/a.vim'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
-
-" NERDTree
-nmap <C-N><C-N> :NERDTreeToggle<cr>
-vmap <C-N><C-N> <esc>:NERDTreeToggle<cr>i
-imap <C-N><C-N> <esc>:NERDTreeToggle<cr>i
 
 " Tagbar
 nmap <C-N><C-M> :TagbarToggle<CR>
@@ -58,28 +56,16 @@ let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1 
+let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+" fzf
+nmap <C-F><C-F> :Files<cr>
+nmap <C-F>f :Files<cr>
 
 "
 " CUSTOM
 "
-
-" Source-Header Toggle
-let g:source_header_switch = 1
-function! SwitchSourceHeader()
-	if (expand ("%:e") == "cpp")
-		let g:source_header_switch = 1
-		find %:t:r.h
-	elseif (expand ("%:e") == "c")
-		let g:source_header_switch = 2
-		find %:t:r.h
-	elseif g:source_header_switch == 1
-		find %:t:r.cpp
-	else
-		find %:t:r.c
-	endif
-endfunction
 
 " 81-symbol column highlight
 let g:column_highlight = 0
@@ -93,7 +79,7 @@ function! SwitchColumnHighlight()
 	endif
 endfunction
 
-nmap <C-M><C-M> :call SwitchSourceHeader()<CR>
+nmap <C-M><C-M> :A<CR>
 nmap <C-B><C-B> :call SwitchColumnHighlight()<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
