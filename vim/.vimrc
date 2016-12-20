@@ -1,9 +1,10 @@
 set showmatch
 set hlsearch
 set incsearch
-set ignorecase
 set number
 set mouse=a
+" needed so that vim still understands escape sequences
+nnoremap <esc>^[ <esc>^[
 
 set foldmethod=syntax
 
@@ -16,6 +17,10 @@ nnoremap k gk
 vmap <C-c> "+y
 vmap <C-v> c<ESC>"+p
 imap <C-v> <ESC>"+pa
+
+set termencoding=latin1
+nnoremap <A-h> :tabprevious<CR>
+nnoremap <A-l> :tabnext<CR>
 
 set shiftwidth=4
 set tabstop=4
@@ -43,6 +48,9 @@ Plug 'vim-scripts/a.vim'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
@@ -62,6 +70,13 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 " fzf
 nmap <C-F><C-F> :Files<cr>
 nmap <C-F>f :Files<cr>
+
+" ultisnips
+set runtimepath+=~/.vim/snippets
+
+let g:UltiSnipsExpandTrigger="<C-t>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
 "
 " CUSTOM

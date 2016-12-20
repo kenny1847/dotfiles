@@ -36,6 +36,7 @@ xterm*cursorBlink: true
  URxvt.saveLines: 500000
  URxvt.lineSpace: 0
  URxvt.letterSpace: 0
+ URxvt.meta8: true
 
 ! --------------------------------------------------------------------------------
 ! terminal colors

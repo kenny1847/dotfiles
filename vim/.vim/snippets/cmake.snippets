@@ -1,0 +1,29 @@
+snippet proj
+	project(${0:Name})
+
+snippet min
+	cmake_minimum_required(version ${0:2.8.2})
+
+snippet include
+	include_directories(${${0:include_dir}})
+
+snippet find
+	find_package(${1:library} ${0:REQUIRED})
+
+snippet glob
+	file(glob ${1:srcs} *.${0:cpp})
+
+snippet subdir
+	add_subdirectory(${0:src})
+
+snippet lib
+	add_library(${1:lib} ${${0:srcs}})
+
+snippet link
+	target_link_libraries(${1:bin} ${0:somelib})
+
+snippet exec
+	add_executable(${1:bin})
+
+snippet set
+	set(${1:var} ${0:val})
