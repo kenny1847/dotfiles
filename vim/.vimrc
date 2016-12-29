@@ -14,7 +14,7 @@ colorscheme seoul256
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w <C-w>
-nnoremap <C-n> :noh<CR>
+nnoremap <silent> <C-n> :nohl<CR>
 
 vmap <C-c> "+y
 vmap <C-v> c<ESC>"+p
