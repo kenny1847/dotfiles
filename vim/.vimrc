@@ -14,6 +14,7 @@ colorscheme seoul256
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w <C-w>
+nnoremap <C-n> :noh<CR>
 
 vmap <C-c> "+y
 vmap <C-v> c<ESC>"+p
@@ -59,7 +60,7 @@ call plug#end()
 
 " Tagbar
 let g:tagbar_left = 1
-nmap <C-N><C-M> :TagbarToggle<CR>
+nmap <leader>t :TagbarToggle<CR>
 
 " YouCompleteMe
 let g:ycm_complete_in_comments = 1
@@ -112,9 +113,6 @@ function! SwitchColumnHighlight()
 endfunction
 
 nmap <C-B><C-B> :call SwitchColumnHighlight()<CR>
-
-" <Ctrl-l> redraws the screen and removes any search highlighting.
-nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " Autoreload vim config
 autocmd! bufwritepost ~/.vimrc execute "normal! :source ~/.vimrc"
