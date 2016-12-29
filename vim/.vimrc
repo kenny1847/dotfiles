@@ -3,8 +3,7 @@ set hlsearch
 set incsearch
 set number
 set mouse=a
-" needed so that vim still understands escape sequences
-nnoremap <esc>^[ <esc>^[
+set ttymouse=urxvt
 
 set foldmethod=syntax
 
@@ -18,9 +17,8 @@ vmap <C-c> "+y
 vmap <C-v> c<ESC>"+p
 imap <C-v> <ESC>"+pa
 
-set termencoding=latin1
-nnoremap <A-h> :tabprevious<CR>
-nnoremap <A-l> :tabnext<CR>
+nnoremap <C-j> :tabprevious<CR>
+nnoremap <C-k> :tabnext<CR>
 
 set shiftwidth=4
 set tabstop=4
@@ -47,6 +45,8 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/a.vim'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -55,21 +55,32 @@ Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 " Tagbar
+let g:tagbar_left = 1
 nmap <C-N><C-M> :TagbarToggle<CR>
 
 " YouCompleteMe
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
+" a
+nmap <C-M><C-M> :A<CR>
+
 " fzf
-nmap <C-F><C-F> :Files<cr>
-nmap <C-F>f :Files<cr>
+nmap <leader>f :FZF<cr>
+
+" ack
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+nnoremap <leader>s :Ack -w <C-r><C-w><CR>
+
+" vim-better-whitespace
+autocmd BufWritePre * StripWhitespace
 
 " ultisnips
 set runtimepath+=~/.vim/snippets
@@ -94,7 +105,6 @@ function! SwitchColumnHighlight()
 	endif
 endfunction
 
-nmap <C-M><C-M> :A<CR>
 nmap <C-B><C-B> :call SwitchColumnHighlight()<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
