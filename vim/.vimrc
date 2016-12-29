@@ -49,6 +49,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
@@ -78,6 +79,7 @@ nmap <leader>f :FZF<cr>
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
+let g:ack_use_dispatch = 1
 nnoremap <leader>s :Ack -w <C-r><C-w><CR>
 
 " vim-better-whitespace
