@@ -60,7 +60,7 @@ call plug#end()
 
 " Tagbar
 let g:tagbar_left = 1
-nmap <leader>t :TagbarToggle<CR>
+nmap <leader>q :TagbarToggle<CR>
 
 " YouCompleteMe
 let g:ycm_complete_in_comments = 1
