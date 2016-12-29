@@ -18,8 +18,8 @@ vmap <C-c> "+y
 vmap <C-v> c<ESC>"+p
 imap <C-v> <ESC>"+pa
 
-nnoremap <C-j> :tabprevious<CR>
-nnoremap <C-k> :tabnext<CR>
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
 
 set shiftwidth=4
 set tabstop=4
