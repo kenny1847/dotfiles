@@ -4,6 +4,7 @@ set incsearch
 set number
 set mouse=a
 set ttymouse=urxvt
+set laststatus=2
 
 set foldmethod=syntax
 
