@@ -27,16 +27,16 @@ xterm*cursorBlink: true
  URxvt.scrollTtyOutput: false
  URxvt.scrollWithBuffer: true
  URxvt.scrollTtyKeypress: true
- URxvt.internalBorder: 0 
+ URxvt.internalBorder: 0
  URxvt.externalBorder: 0
- URxvt.borderLess: false 
+ URxvt.borderLess: false
  URxvt.cursorUnderline: false
  URxvt.url-launcher: chromium
  URxvt.cursorBlink: true
  URxvt.saveLines: 500000
  URxvt.lineSpace: 0
  URxvt.letterSpace: 0
- URxvt.meta8: true
+ URxvt.meta8: false
 
 ! --------------------------------------------------------------------------------
 ! terminal colors
