@@ -11,20 +11,6 @@ set foldmethod=syntax
 let g:seoul256_background = 234
 colorscheme seoul256
 
-nnoremap j gj
-nnoremap k gk
-nnoremap <leader>w <C-w>
-nnoremap <silent> <C-n> :nohl<CR>
-
-vmap <C-c> "+y
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
-
-nnoremap <C-h> :tabprevious<CR>
-nnoremap <C-l> :tabnext<CR>
-
-autocmd FileType qf nnoremap <buffer> <C-T> <C-W><Enter><C-W>T
-
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
@@ -33,6 +19,9 @@ set noexpandtab
 set modeline
 set modelines=5
 set foldlevel=5
+
+set exrc
+set secure
 
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -59,6 +48,20 @@ function! SwitchColumnHighlight()
 endfunction
 
 nmap <C-B><C-B> :call SwitchColumnHighlight()<CR>
+
+nnoremap j gj
+nnoremap k gk
+nnoremap <leader>w <C-w>
+nnoremap <silent> <C-n> :nohl<CR>
+
+vmap <C-c> "+y
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
+
+autocmd FileType qf nnoremap <buffer> <C-T> <C-W><Enter><C-W>T
 
 
 " VimPlug
