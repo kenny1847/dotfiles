@@ -23,6 +23,8 @@ imap <C-v> <ESC>"+pa
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
 
+autocmd FileType qf nnoremap <buffer> <C-T> <C-W><Enter><C-W>T
+
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
@@ -45,10 +47,11 @@ au! Syntax qml source $HOME/.vim/syntax/qml.vim
 
 " 80-symbol column highlight
 let g:column_highlight = 0
+let g:column_number_highlight = 80
 function! SwitchColumnHighlight()
 	if (g:column_highlight == 0)
 		let g:column_highlight = 1
-		set colorcolumn=80
+		execute "set colorcolumn=".g:column_number_highlight
 	else
 		let g:column_highlight = 0
 		set colorcolumn=0
