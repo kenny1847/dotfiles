@@ -23,6 +23,8 @@ set foldlevel=5
 set exrc
 set secure
 
+set wildmenu
+
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 
