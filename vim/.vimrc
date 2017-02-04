@@ -25,6 +25,10 @@ set secure
 
 set wildmenu
 
+set noswapfile
+set nobackup
+set nowritebackup
+
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 
@@ -64,27 +68,31 @@ nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
 
 autocmd FileType qf nnoremap <buffer> <C-T> <C-W><Enter><C-W>T
+autocmd FileType qf set cc=0
 
 
 " VimPlug
 call plug#begin('~/.vim/plugged')
 
-Plug 'lyuts/vim-rtags'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/neoinclude.vim'
-Plug 'junegunn/seoul256.vim'
-Plug 'majutsushi/tagbar'
-Plug 'vim-scripts/a.vim'
+Plug 'bkad/CamelCaseMotion'
+Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'lyuts/vim-rtags'
+Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'SirVer/ultisnips'
+Plug 'vim-scripts/a.vim'
 
 call plug#end()
 
@@ -100,6 +108,17 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 1
 let g:neocomplete#auto_completion_start_length = 1
 let g:neocomplete#min_keyword_length = 1
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return pumvisible() ? "\<C-y>" : "\<CR>"
@@ -116,8 +135,7 @@ function! SetupNeocomleteForCppWithRtags()
 	if !exists('g:neocomplete#sources#omni#input_patterns')
 		let g:neocomplete#sources#omni#input_patterns = {}
 	endif
-	let l:cpp_patterns='[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-	let g:neocomplete#sources#omni#input_patterns.cpp = l:cpp_patterns
+	let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 	set completeopt+=longest,menuone
 endfunction
 
@@ -130,7 +148,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
 " rtags
-let g:rtagsMinCharsForCommandCompletion = 1
+let g:rtagsMinCharsForCommandCompletion = 2
 
 
 " a
@@ -138,12 +156,16 @@ nmap <C-M><C-M> :A<CR>
 
 
 " fzf
+let g:fzf_layout = { 'down': '~30%' }
 nmap <leader>f :FZF<cr>
 
 
 " ack
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
+endif
+if executable('rg')
+	let g:ackprg = 'rg --vimgrep --no-heading'
 endif
 let g:ack_use_dispatch = 1
 nnoremap <leader>s :Ack -w <C-r><C-w><CR>
@@ -159,3 +181,12 @@ set runtimepath+=~/.vim/snippets
 let g:UltiSnipsExpandTrigger="<C-t>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
+
+" CamelCaseMotion
+call camelcasemotion#CreateMotionMappings(',')
+
+
+" NerdTree
+map <leader>e :NERDTreeToggle<CR>
+map <leader>t :NERDTreeFind<CR>
