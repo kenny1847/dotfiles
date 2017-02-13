@@ -66,6 +66,8 @@ imap <C-v> <ESC>"+pa
 
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
+nnoremap <leader>z :-tabmove<CR>
+nnoremap <leader>x :+tabmove<CR>
 
 autocmd FileType qf nnoremap <buffer> <C-T> <C-W><Enter><C-W>T
 autocmd FileType qf set cc=0
