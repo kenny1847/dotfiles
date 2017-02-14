@@ -4,7 +4,9 @@ if [[ $- != *i* ]] ; then
 fi
 
 # Enable completion
-if [ -f /etc/bash/bashrc.d/bash_completion.sh ]; then
+if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+	source /usr/share/bash-completion/bash_completion
+elif [[ -f /etc/bash/bashrc.d/bash_completion.sh ]]; then
 	source /etc/bash/bashrc.d/bash_completion.sh
 fi
 
@@ -20,7 +22,7 @@ shopt -s no_empty_cmd_completion
 set -o vi
 
 # avoid duplicates in history
-export HISTCONTROL=ignoredups:erasedups  
+export HISTCONTROL=ignoredups:erasedups
 # append history entries
 shopt -s histappend
 # After each command, save and reload history
@@ -111,7 +113,11 @@ On_IWhite='\e[0;107m'
 # instead of using /etc/DIR_COLORS.  Try to use the external file
 # first to take advantage of user additions.
 
-source /usr/share/git/git-prompt.sh 
+if [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]]; then
+	source /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [[ -f /usr/share/git/git-prompt.sh ]]; then
+	source /usr/share/git/git-prompt.sh
+fi
 
 use_color=false
 if type -P dircolors >/dev/null ; then
@@ -181,5 +187,4 @@ alias mv='mv -v'
 alias ll='ls -l'
 
 # Custom exports
-export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 export EDITOR="vim"
