@@ -13,7 +13,10 @@ if [[ ${state} == "Full" || ${state} == "Unknown" ]]; then
 else
 	percentage=${percentage:0:-2}
 	if [[ ${state} == "Charging" ]]; then
-		result="${result}"
+		result="${result} ${percentage}%"
+		if ! [[ ${percentage} -eq 100 ]]; then
+			result="${result} ${time}"
+		fi
 	elif [[ ${state} == "Discharging" ]]; then
 		if [[ $percentage -ge 80 ]]; then
 			result="${result}"
@@ -27,8 +30,8 @@ else
 			result="${result}"
 		fi
 		need_color=1
+		result="${result}  ${percentage}% ${time}"
 	fi
-	result="${result}  ${percentage}% ${time}"
 fi
 
 echo "${result}"
