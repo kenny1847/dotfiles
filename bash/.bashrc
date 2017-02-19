@@ -10,8 +10,7 @@ elif [[ -f /etc/bash/bashrc.d/bash_completion.sh ]]; then
 	source /etc/bash/bashrc.d/bash_completion.sh
 fi
 
-# Enable checkwinsize so that bash will check the terminal size when
-# it regains control.
+# Enable checkwinsize so that bash will check the terminal size when it regains control.
 shopt -s checkwinsize
 
 # Disable completion when the input buffer is empty.  i.e. Hitting tab
@@ -33,7 +32,6 @@ HISTFILESIZE=20000000
 
 
 # Colors
-
 Color_Off='\e[0m'
 
 # Usual colors
@@ -109,10 +107,6 @@ On_IWhite='\e[0;107m'
 
 
 # Set colorful PS1 with git-prompt only on colorful terminals.
-# dircolors --print-database uses its own built-in database
-# instead of using /etc/DIR_COLORS.  Try to use the external file
-# first to take advantage of user additions.
-
 if [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]]; then
 	source /usr/share/git-core/contrib/completion/git-prompt.sh
 elif [[ -f /usr/share/git/git-prompt.sh ]]; then
@@ -121,7 +115,6 @@ fi
 
 use_color=false
 if type -P dircolors >/dev/null ; then
-	# Enable colors for ls, etc.  Prefer ~/.dir_colors
 	LS_COLORS=
 	if [[ -f ~/.dir_colors ]] ; then
 		used_default_dircolors="no"
@@ -149,8 +142,6 @@ if type -P dircolors >/dev/null ; then
 	fi
 	unset used_default_dircolors
 else
-	# Some systems (e.g. BSD & embedded) don't typically come with
-	# dircolors so we need to hardcode some terminals in here.
 	case ${TERM} in
 	[aEkx]term*|rxvt*|gnome*|konsole*|screen|cons25|*color) use_color=true;;
 	esac
@@ -173,18 +164,18 @@ if ${use_color} ; then
 	alias fgrep='fgrep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
-		# show root@ when we don't have colors
 		PS1+='\u@\h \W \$ '
 	else
 		PS1+='\u@\h \w \$ '
 	fi
 fi
 
-# Custom aliases
+# Aliases
 alias rm='rm -v'
 alias cp='cp -v'
 alias mv='mv -v'
 alias ll='ls -l'
+alias la='ls -la'
 
-# Custom exports
+# Exports
 export EDITOR="vim"
