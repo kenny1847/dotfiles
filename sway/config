@@ -1,0 +1,268 @@
+### Autostart
+#
+
+exec xrdb -merge ~/.Xresources
+exec /opt/Telegram/Telegram
+workspace 0:dev
+
+
+### Variables
+#
+
+# Shortnames to Modifers
+# Alt          Mod1
+# Num Lock     Mod2
+# ---          Mod3
+# WinKey/Super Mod4
+# Mode_Switch  Mod5
+set $mod Mod4
+
+# Navigation
+set $up     k
+set $down   j
+set $left   h
+set $right  l
+
+# Workspaces names
+set $ws0 0:dev
+set $ws1 1:term
+set $ws2 2:www
+set $ws3 3:im
+set $ws4 4:misc
+set $ws5 5:screen
+set $ws6 6:build
+set $ws7 7:xmpp
+set $ws8 8:other
+
+# Workspaces outputs
+workspace $ws0 output HDMI2
+workspace $ws1 output HDMI2
+workspace $ws2 output HDMI1
+workspace $ws3 output HDMI1
+workspace $ws4 output HDMI1
+workspace $ws5 output HDMI2
+workspace $ws6 output HDMI2
+workspace $ws7 output HDMI1
+workspace $ws8 output HDMI1
+
+# Terminal
+set $term urxvt256c-ml
+
+# Launcher
+set $launcher dmenu_run -fn "Open Sans:size=12" -nb "#131314" -nf "#9B9696" -sb "#131314" -sf "#408075"
+
+# IM client
+set $im /opt/Telegram/Telegram
+
+# Wallpaper
+set $wallpaper ~/Wallpapers/yuno.png
+
+
+### Inputs
+#
+
+input 2:14:ETPS/2_Elantech_Touchpad {
+	click_method button_areas
+	dwt enabled
+	middle_emulation enabled
+	natural_scroll disabled
+	tap enabled
+}
+
+
+### Outputs
+#
+
+output * bg $wallpaper fill
+
+
+### Key bindings
+#
+
+## Navigation
+# Change focus
+bindsym $mod+$left          focus  left
+bindsym $mod+$down          focus  down
+bindsym $mod+$up            focus  up
+bindsym $mod+$right         focus  right
+
+# Move focused window
+bindsym $mod+Shift+$left    move   left
+bindsym $mod+Shift+$down    move   down
+bindsym $mod+Shift+$up      move   up
+bindsym $mod+Shift+$right   move   right
+
+# Kill focused window
+bindsym $mod+q kill
+
+## Workspaces
+# Switch to workspace
+bindsym $mod+grave workspace $ws0
+bindsym $mod+1     workspace $ws1
+bindsym $mod+2     workspace $ws2
+bindsym $mod+3     workspace $ws3
+bindsym $mod+4     workspace $ws4
+bindsym $mod+F1    workspace $ws5
+bindsym $mod+F2    workspace $ws6
+bindsym $mod+F3    workspace $ws7
+bindsym $mod+F4    workspace $ws8
+
+# Move focused container to workspace
+bindsym $mod+Shift+grave move container to workspace  $ws0
+bindsym $mod+Shift+1     move container to workspace  $ws1
+bindsym $mod+Shift+2     move container to workspace  $ws2
+bindsym $mod+Shift+3     move container to workspace  $ws3
+bindsym $mod+Shift+4     move container to workspace  $ws4
+bindsym $mod+Shift+F1    move container to workspace  $ws5
+bindsym $mod+Shift+F2    move container to workspace  $ws6
+bindsym $mod+Shift+F3    move container to workspace  $ws7
+bindsym $mod+Shift+F4    move container to workspace  $ws8
+
+## Layouts
+# Split in horizontal/vertical orientation
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused window
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling/floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent/child container
+bindsym $mod+a focus parent
+bindsym $mod+x focus child
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+## Scratchpad
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+## Resize mode
+# Turn on resize mode
+bindsym $mod+r mode "resize"
+mode "resize" {
+	bindsym $left       resize shrink width 5 px or 5 ppt
+	bindsym $right      resize grow width 5 px or 5 ppt
+	bindsym $down       resize grow height 5 px or 5 ppt
+	bindsym $up         resize shrink height 5 px or 5 ppt
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+## Sway
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Lock
+bindsym $mod+Shift+w exec swaylock -i $wallpaper
+
+# Exit
+bindsym $mod+Shift+e exit
+
+## Runners
+# Terminal
+bindsym $mod+Return exec $term
+
+# Launcher
+bindsym $mod+p exec $launcher
+
+# IM client
+bindsym $mod+T exec $im; workspace $ws3
+
+## Volume controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute        exec pactl set-sink-mute 0 toggle
+
+## Mpd
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioStop exec mpc stop
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
+
+## Backlight
+# Monitor backlight
+bindsym XF86MonBrightnessUp   exec xbacklight -ctrl intel_backlight -inc 10 -steps 2
+bindsym XF86MonBrightnessDown exec xbacklight -ctrl intel_backlight -dec 10 -steps 2
+
+# Keyboard backlight
+bindsym XF86KbdBrightnessUp   exec xbacklight -ctrl asus::kbd_backlight -inc 30
+bindsym XF86KbdBrightnessDown exec xbacklight -ctrl asus::kbd_backlight -dec 30
+
+## Screenshots
+# Take a Screenshot
+bindsym Print                          exec "scrot -e 'mv $f ~/Screenshots/'"
+bindsym --release Shift+Print          exec "scrot --select -e 'mv $f ~/Screenshots/'"
+# Same binding but for external keyboard
+bindsym XF86Favorites                  exec "scrot -e 'mv $f ~/Screenshots/'"
+bindsym --release Shift+XF86Favorites  exec "scrot --select -e 'mv $f ~/Screenshots/'"
+
+
+### Borders
+#
+
+new_float  pixel 1
+new_window pixel 1
+
+
+### Font
+#
+
+font pango: Open Sans 12
+
+
+### Color for containers
+#
+
+#                       border  backgr. text    indicator
+client.unfocused        #404040 #2D2C28 #9B9696 #2D2C28
+client.focused_inactive #2D2C28 #20403A #F9F9F9 #2D2C28
+client.focused          #408075 #408075 #131314 #408075
+client.urgent           #73ADA5 #73ADA5 #131314 #8ABEB7
+
+
+### Bar
+#
+
+bar {
+	position                top
+	strip_workspace_numbers yes
+	status_command          i3blocks
+	colors {
+		background #131314
+		statusline #9B9696
+		separator  #131314
+		#                  border  backgr. text
+		focused_workspace  #131314 #131314 #408075
+		inactive_workspace #131314 #131314 #9B9696
+		urgent_workspace   #131314 #131314 #9B9696
+		}
+}
+
+
+### Windows preferences
+#
+
+assign [class="jetbrains-clion"]           → $ws0
+assign [window_role="browser"]             → $ws2
+assign [class="google-chrome"]             → $ws2
+assign [class="Telegram"]                  → $ws3
+assign [title="ncmpcpp"]                   → $ws4
+assign [class="Pidgin"]                    → $ws7
+assign [class="Slack*"]                    → $ws8

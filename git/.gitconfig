@@ -1,0 +1,9 @@
+[alias]
+	hist = log --date-order --graph --pretty=format:'%Cred%h%Creset - %C(green)%ad%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
+	st = status
+	su = submodule update
+[user]
+	email = danil.dulin@iksatprof.ru
+	name = Danil Dulin
+[push]
+	default = simple

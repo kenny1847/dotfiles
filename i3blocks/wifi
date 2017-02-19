@@ -1,0 +1,11 @@
+#!/bin/bash
+
+interface="wlp4s0"
+
+echo -n " "
+
+if [[ "$(cat /sys/class/net/$interface/operstate)" = 'down' ]]; then
+	echo "down"
+fi
+
+echo $(grep $interface /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')

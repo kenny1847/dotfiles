@@ -1,0 +1,36 @@
+#!/bin/bash
+
+SCONTROL="${BLOCK_INSTANCE:-$(amixer scontrols | sed -n "s/Simple mixer control '\([A-Za-z ]*\)',0/\1/p" | head -n1)}"
+
+capability() {
+  amixer get $SCONTROL | sed -n "s/  Capabilities:.*cvolume.*/Capture/p"
+}
+
+volume() {
+  amixer get $SCONTROL $(capability)
+}
+
+format() {
+  perl_filter='if (/.*\[(\d+%)\] (\[(-?\d+.\d+dB)\] )?\[(on|off)\]/)'
+  perl_filter+='{CORE::say $4 eq "off" ? "MUTE" : "'
+  perl_filter+=$([[ $STEP = *dB ]] && echo '$3' || echo '$1')
+  perl_filter+='"; exit}'
+  perl -ne "$perl_filter"
+}
+
+result=$(volume | format)
+if [[ $result == "MUTE" ]]; then
+	echo -n "   X   "
+else
+	percentage=${result:0:-1}
+	if [[ ${percentage} -ge 100 ]]; then
+		echo -n ""
+	elif [[ ${percentage} -ge 50 && ${percentage} -lt 100 ]]; then
+		echo -n " "
+	elif [[ ${percentage} -ge 10 && ${percentage} -lt 50 ]]; then
+		echo -n " "
+	else
+		echo -n "  "
+	fi
+	echo " ${result}"
+fi
