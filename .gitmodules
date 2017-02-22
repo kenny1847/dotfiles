@@ -1,0 +1,3 @@
+[submodule "acpilight"]
+	path = acpilight
+	url = https://github.com/wavexx/acpilight
