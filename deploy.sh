@@ -60,7 +60,9 @@ deploy_i3blocks() {
 
 deploy_look() {
 	echo "Deploying look and feel"
+	cp -r look/Wallpapers ~/
 	cp look/.Xresources ~/
+
 }
 
 deploy_sway() {
