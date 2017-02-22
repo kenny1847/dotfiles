@@ -1,13 +1,13 @@
 #!/bin/bash
 
-SCONTROL="${BLOCK_INSTANCE:-$(amixer scontrols | sed -n "s/Simple mixer control '\([A-Za-z ]*\)',0/\1/p" | head -n1)}"
+control="${BLOCK_INSTANCE:-$(amixer scontrols | sed -n "s/Simple mixer control '\([A-Za-z ]*\)',0/\1/p" | head -n1)}"
 
 capability() {
-  amixer get $SCONTROL | sed -n "s/  Capabilities:.*cvolume.*/Capture/p"
+  amixer get ${control} | sed -n "s/  Capabilities:.*cvolume.*/Capture/p"
 }
 
 volume() {
-  amixer get $SCONTROL $(capability)
+  amixer get ${control} $(capability)
 }
 
 format() {
@@ -19,18 +19,14 @@ format() {
 }
 
 result=$(volume | format)
-if [[ $result == "MUTE" ]]; then
-	echo -n "   X   "
+if [[ ${result} == "MUTE" ]]; then
+	echo -n " X"
 else
 	percentage=${result:0:-1}
-	if [[ ${percentage} -ge 100 ]]; then
+	if [[ ${percentage} -ge 50 ]]; then
 		echo -n ""
-	elif [[ ${percentage} -ge 50 && ${percentage} -lt 100 ]]; then
-		echo -n " "
-	elif [[ ${percentage} -ge 10 && ${percentage} -lt 50 ]]; then
-		echo -n " "
 	else
-		echo -n "  "
+		echo -n ""
 	fi
 	echo " ${result}"
 fi

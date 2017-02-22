@@ -1,17 +1,19 @@
 command=~/.config/i3blocks/$BLOCK_NAME
 interval=1
-separator_block_width=15
+separator_block_width=10
 markup=none
+align=center
 
 [volume]
 instance=Master
 
 [wifi]
+instance=wlp4s0
 
 [battery]
 
-[time]
-command=echo -n ' '; date '+%H:%M'
-
 [date]
 command=echo -n ' '; date '+%a %d.%m'
+
+[time]
+command=echo -n ' '; date '+%H:%M'

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-interface="wlp4s0"
+interface="${BLOCK_INSTANCE:-wlp2s0}"
 
 echo -n " "
 
