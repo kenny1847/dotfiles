@@ -76,32 +76,55 @@ autocmd FileType qf set cc=0
 " VimPlug
 call plug#begin('~/.vim/plugged')
 
+Plug 'vim-scripts/a.vim'
+Plug 'mileszs/ack.vim'
 Plug 'bkad/CamelCaseMotion'
-Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/seoul256.vim'
-Plug 'lyuts/vim-rtags'
-Plug 'majutsushi/tagbar'
-Plug 'mileszs/ack.vim'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
+Plug 'junegunn/seoul256.vim', { 'do': 'cp -rf ./colors ~/.vim/' }
+Plug 'tpope/vim-abolish'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'lyuts/vim-rtags'
+Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
-Plug 'vim-scripts/a.vim'
 
 call plug#end()
 
 
-" Tagbar
-let g:tagbar_left = 1
-nmap <leader>q :TagbarToggle<CR>
+" a
+nmap <C-M><C-M> :A<CR>
+
+
+" ack
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+if executable('rg')
+	let g:ackprg = 'rg --vimgrep --no-heading'
+endif
+let g:ack_use_dispatch = 1
+nnoremap <leader>s :Ack -w <C-r><C-w><CR>
+
+
+" CamelCaseMotion
+call camelcasemotion#CreateMotionMappings(',')
+
+
+" fzf
+let g:fzf_layout = { 'down': '~30%' }
+nmap <leader>f :FZF<cr>
+
+
+" NerdTree
+map <leader>e :NERDTreeToggle<CR>
+map <leader>t :NERDTreeFind<CR>
 
 
 " NeoComplete
@@ -149,32 +172,17 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
-" rtags
+" vim-better-whitespace
+autocmd BufWritePre * StripWhitespace
+
+
+" vim-rtags
 let g:rtagsMinCharsForCommandCompletion = 2
 
 
-" a
-nmap <C-M><C-M> :A<CR>
-
-
-" fzf
-let g:fzf_layout = { 'down': '~30%' }
-nmap <leader>f :FZF<cr>
-
-
-" ack
-if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
-endif
-if executable('rg')
-	let g:ackprg = 'rg --vimgrep --no-heading'
-endif
-let g:ack_use_dispatch = 1
-nnoremap <leader>s :Ack -w <C-r><C-w><CR>
-
-
-" vim-better-whitespace
-autocmd BufWritePre * StripWhitespace
+" Tagbar
+let g:tagbar_left = 1
+nmap <leader>q :TagbarToggle<CR>
 
 
 " ultisnips
@@ -183,12 +191,3 @@ set runtimepath+=~/.vim/snippets
 let g:UltiSnipsExpandTrigger="<C-t>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-
-
-" CamelCaseMotion
-call camelcasemotion#CreateMotionMappings(',')
-
-
-" NerdTree
-map <leader>e :NERDTreeToggle<CR>
-map <leader>t :NERDTreeFind<CR>
