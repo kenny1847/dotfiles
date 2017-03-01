@@ -2,6 +2,7 @@
 #
 
 exec xrdb -merge ~/.Xresources
+exec dunst -config ~/.config/dunst/dunstrc
 exec /opt/Telegram/Telegram
 workspace 0:dev
 
@@ -186,9 +187,10 @@ bindsym $mod+p exec $launcher
 bindsym $mod+T exec $im; workspace $ws3
 
 ## Volume controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute        exec pactl set-sink-mute 0 toggle
+
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-
+bindsym XF86AudioMute        exec amixer -q -D pulse sset Master toggle
 
 ## Mpd
 bindsym XF86AudioPlay exec mpc toggle
