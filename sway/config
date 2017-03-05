@@ -209,11 +209,9 @@ bindsym XF86KbdBrightnessDown exec xbacklight -ctrl asus::kbd_backlight -dec 30
 
 ## Screenshots
 # Take a Screenshot
-bindsym Print                          exec "scrot -e 'mv $f ~/Screenshots/'"
-bindsym --release Shift+Print          exec "scrot --select -e 'mv $f ~/Screenshots/'"
+bindsym Print                          exec swaygrab "~/Screenshots/$(date '+%d_%m_%Y__%H_%M_%S').png"
 # Same binding but for external keyboard
-bindsym XF86Favorites                  exec "scrot -e 'mv $f ~/Screenshots/'"
-bindsym --release Shift+XF86Favorites  exec "scrot --select -e 'mv $f ~/Screenshots/'"
+bindsym XF86Favorites                  exec swaygrab "~/Screenshots/$(date '+%d_%m_%Y__%H_%M_%S').png"
 
 
 ### Borders
@@ -264,6 +262,7 @@ bar {
 assign [class="jetbrains-clion"]           → $ws0
 assign [window_role="browser"]             → $ws2
 assign [class="google-chrome"]             → $ws2
+assign [class="Google-chrome"]             → $ws2
 assign [class="Telegram"]                  → $ws3
 assign [title="ncmpcpp"]                   → $ws4
 assign [class="Pidgin"]                    → $ws7
