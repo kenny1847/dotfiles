@@ -41,9 +41,9 @@ au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *.m set filetype=octave
 au! Syntax qml source $HOME/.vim/syntax/qml.vim
 
-" 80-symbol column highlight
+" 160-symbol column highlight
 let g:column_highlight = 0
-let g:column_number_highlight = 80
+let g:column_number_highlight = 160
 function! SwitchColumnHighlight()
 	if (g:column_highlight == 0)
 		let g:column_highlight = 1
