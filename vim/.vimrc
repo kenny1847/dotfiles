@@ -38,6 +38,7 @@ au BufRead,BufNewFile *.i set filetype=swig
 au BufRead,BufNewFile *.vsh,*.psh set filetype=glsl
 au BufRead,BufNewFile *.decl set filetype=qml
 au BufRead,BufNewFile *.log set filetype=log
+au BufRead,BufNewFile *.m set filetype=octave
 au! Syntax qml source $HOME/.vim/syntax/qml.vim
 
 " 80-symbol column highlight
