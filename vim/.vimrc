@@ -88,6 +88,7 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'junegunn/seoul256.vim', { 'do': 'cp -rf ./colors ~/.vim/' }
 Plug 'tpope/vim-abolish'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'lyuts/vim-rtags'
