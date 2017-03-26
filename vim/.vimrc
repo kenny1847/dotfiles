@@ -91,6 +91,8 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+Plug 'osyo-manga/vim-marching'
+Plug 'osyo-manga/vim-reunions'
 Plug 'lyuts/vim-rtags'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -137,10 +139,10 @@ let g:neocomplete#sources#syntax#min_keyword_length = 1
 let g:neocomplete#auto_completion_start_length = 1
 let g:neocomplete#min_keyword_length = 1
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+\ 'default' : '',
+\ 'vimshell' : $HOME.'/.vimshell_hist',
+\ 'scheme' : $HOME.'/.gosh_completions'
+\ }
 
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
@@ -156,18 +158,11 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
-function! SetupNeocomleteForCppWithRtags()
-	setlocal omnifunc=RtagsCompleteFunc
-
-	if !exists('g:neocomplete#sources#omni#input_patterns')
-		let g:neocomplete#sources#omni#input_patterns = {}
-	endif
-	let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-	set completeopt+=longest,menuone
-endfunction
-
-autocmd FileType cxx,cpp,c,h,hpp,hxx call SetupNeocomleteForCppWithRtags()
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -179,8 +174,14 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd BufWritePre * StripWhitespace
 
 
-" vim-rtags
-let g:rtagsMinCharsForCommandCompletion = 2
+" vim-marching
+let g:marching_enable_refresh_always = 1
+let g:marching_enable_neocomplete = 1
+let g:marching_include_paths = filter(
+\ split(glob('/usr/include/c++/*'), '\n') +
+\ split(glob('/usr/include/*/c++/*'), '\n') +
+\ split(glob('/usr/include/*/'), '\n'),
+\ 'isdirectory(v:val)')
 
 
 " Tagbar
