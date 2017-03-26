@@ -92,6 +92,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'lyuts/vim-rtags'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'majutsushi/tagbar'
