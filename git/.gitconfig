@@ -3,7 +3,7 @@
 	st = status
 	su = submodule update
 [user]
-	email = danil.dulin@iksatprof.ru
+	email = danil.dulin@gs-labs.ru
 	name = Danil Dulin
 [push]
 	default = simple
