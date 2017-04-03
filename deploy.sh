@@ -77,7 +77,6 @@ deploy_sway() {
 
 deploy_symlinks() {
 	user_home=~
-	echo ${user_home}
 	sudo ln -sf ${user_home}/.bashrc /root/.bashrc
 	sudo ln -sf ${user_home}/.vim /root/.vim
 	sudo ln -sf ${user_home}/.vimrc /root/.vimrc
