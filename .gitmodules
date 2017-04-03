@@ -1,3 +1,6 @@
 [submodule "acpilight"]
 	path = dependencies/acpilight
 	url = https://github.com/wavexx/acpilight
+[submodule "dependencies/i3blocks"]
+	path = dependencies/i3blocks
+	url = https://github.com/vivien/i3blocks.git
