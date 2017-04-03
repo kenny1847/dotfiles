@@ -39,6 +39,7 @@ au BufRead,BufNewFile *.vsh,*.psh set filetype=glsl
 au BufRead,BufNewFile *.decl set filetype=qml
 au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *.m set filetype=octave
+au BufRead,BufNewFile *.tex set fenc=utf-8 ts=2 sw=2 sts=2 et fdm=indent foldlevel=20
 au! Syntax qml source $HOME/.vim/syntax/qml.vim
 
 " 160-symbol column highlight
