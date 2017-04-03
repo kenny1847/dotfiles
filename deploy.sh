@@ -26,8 +26,8 @@ fi
 
 deploy_acpilight() {
 	echo "Deploying acpilight"
-	sudo cp acpilight/90-backlight.rules /etc/udev/rules.d/
-	sudo cp acpilight/xbacklight /usr/local/bin/
+	sudo cp ./dependencies/acpilight/90-backlight.rules /etc/udev/rules.d/
+	sudo cp ./dependencies/acpilight/xbacklight /usr/local/bin/
 	sudo udevadm control --reload-rules
 }
 
