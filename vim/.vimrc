@@ -92,10 +92,12 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'junegunn/seoul256.vim', { 'do': 'cp -rf ./colors ~/.vim/' }
 Plug 'tpope/vim-abolish'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'rhysd/vim-clang-format'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'osyo-manga/vim-marching'
+Plug 'kana/vim-operator-user'
 Plug 'osyo-manga/vim-reunions'
 Plug 'lyuts/vim-rtags'
 Plug 'tpope/vim-surround'
@@ -176,6 +178,11 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " vim-better-whitespace
 autocmd BufWritePre * StripWhitespace
+
+
+" vim-clang-format
+nnoremap <Leader>cf :<C-u>ClangFormat<CR>
+vnoremap <Leader>cf :ClangFormat<CR>
 
 
 " vim-marching
