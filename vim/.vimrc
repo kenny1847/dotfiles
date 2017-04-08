@@ -29,6 +29,11 @@ set noswapfile
 set nobackup
 set nowritebackup
 
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 

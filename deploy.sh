@@ -94,6 +94,7 @@ deploy_symlinks() {
 	sudo ln -sf ${user_home}/.bashrc /root/.bashrc
 	sudo ln -sf ${user_home}/.vim /root/.vim
 	sudo ln -sf ${user_home}/.vimrc /root/.vimrc
+	sudo ln -sf ${user_home}/.vim/undo /root/.vim/undo
 	set +x
 }
 
@@ -101,6 +102,9 @@ deploy_vim() {
 	echo "Deploying vim"
 	set -x
 	cp -r vim/.vim ~/
+	if ![[ -d ~/.vim/undo ]]; then
+		mkdir ~/.vim/undo
+	fi
 	cp vim/.vimrc ~/
 	vim -c ":PlugUpgrade | :PlugInstall | :qa"
 	set +x
