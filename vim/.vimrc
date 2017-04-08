@@ -101,9 +101,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-Plug 'osyo-manga/vim-marching'
 Plug 'kana/vim-operator-user'
-Plug 'osyo-manga/vim-reunions'
 Plug 'lyuts/vim-rtags'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -193,15 +191,6 @@ autocmd BufWritePre * StripWhitespace
 nnoremap <Leader>cf :<C-u>ClangFormat<CR>
 vnoremap <Leader>cf :ClangFormat<CR>
 
-
-" vim-marching
-let g:marching_enable_refresh_always = 1
-let g:marching_enable_neocomplete = 1
-let g:marching_include_paths = filter(
-\ split(glob('/usr/include/c++/*'), '\n') +
-\ split(glob('/usr/include/*/c++/*'), '\n') +
-\ split(glob('/usr/include/*/'), '\n'),
-\ 'isdirectory(v:val)')
 
 
 
