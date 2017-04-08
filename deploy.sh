@@ -105,7 +105,6 @@ deploy_symlinks() {
 	sudo ln -sf ${user_home}/.bashrc /root/.bashrc
 	sudo ln -sf ${user_home}/.vim /root/.vim
 	sudo ln -sf ${user_home}/.vimrc /root/.vimrc
-	sudo ln -sf ${user_home}/.vim/undo /root/.vim/undo
 	set +x
 }
 
