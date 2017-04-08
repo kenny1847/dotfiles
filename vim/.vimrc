@@ -81,6 +81,12 @@ nnoremap <C-l> :tabnext<CR>
 nnoremap <leader>z :-tabmove<CR>
 nnoremap <leader>x :+tabmove<CR>
 
+inoremap <expr><C-n> pumvisible() ? '<C-n>' : '<C-X><C-U>'
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
 
 
 " VimPlug
@@ -145,37 +151,34 @@ map <leader>t :NERDTreeFind<CR>
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 1
-let g:neocomplete#auto_completion_start_length = 0
+let g:neocomplete#auto_completion_start_length = 1
 let g:neocomplete#min_keyword_length = 1
-let g:neocomplete#sources#dictionary#dictionaries = {
-\ 'default' : '',
-\ 'vimshell' : $HOME.'/.vimshell_hist',
-\ 'scheme' : $HOME.'/.gosh_completions'
-\ }
+let g:neocomplete#sources#dictionary#dictionaries = {'default' : '', 'vimshell' : $HOME.'/.vimshell_hist'}
 
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
-let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+if !exists('g:neocomplete#delimiter_patterns')
+	let g:neocomplete#delimiter_patterns= {}
+endif
+let g:neocomplete#delimiter_patterns.cpp = ['::', '.', '->']
+
 au FileType css setlocal omnifunc=csscomplete#CompleteCSS
 au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 au FileType python setlocal omnifunc=pythoncomplete#Complete
 au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+inoremap <expr><C-g> neocomplete#undo_completion()
 
 
 " Tagbar
@@ -192,6 +195,10 @@ nnoremap <Leader>cf :<C-u>ClangFormat<CR>
 vnoremap <Leader>cf :ClangFormat<CR>
 
 
+" vim-rtags
+let g:rtagsMinCharsForCommandCompletion = 1
+au FileType cpp.doxygen set completefunc=RtagsCompleteFunc
+au FileType cpp.doxygen set omnifunc=RtagsCompleteFunc
 
 
 " ultisnips
