@@ -46,6 +46,8 @@ au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *.m set filetype=octave
 au BufRead,BufNewFile *.tex set fenc=utf-8 ts=2 sw=2 sts=2 et fdm=indent foldlevel=20
 au FileType gitcommit set cc=72
+au FileType qf nnoremap <buffer> <C-T> <C-W><CR><C-W>T
+au FileType qf set cc=0
 au! Syntax qml source $HOME/.vim/syntax/qml.vim
 
 " 160-symbol column highlight
@@ -79,8 +81,6 @@ nnoremap <C-l> :tabnext<CR>
 nnoremap <leader>z :-tabmove<CR>
 nnoremap <leader>x :+tabmove<CR>
 
-autocmd FileType qf nnoremap <buffer> <C-T> <C-W><Enter><C-W>T
-autocmd FileType qf set cc=0
 
 
 " VimPlug
@@ -173,12 +173,16 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+au FileType python setlocal omnifunc=pythoncomplete#Complete
+au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Tagbar
+let g:tagbar_left = 1
+nmap <leader>q :TagbarToggle<CR>
 
 
 " vim-better-whitespace
@@ -199,10 +203,6 @@ let g:marching_include_paths = filter(
 \ split(glob('/usr/include/*/'), '\n'),
 \ 'isdirectory(v:val)')
 
-
-" Tagbar
-let g:tagbar_left = 1
-nmap <leader>q :TagbarToggle<CR>
 
 
 " ultisnips
