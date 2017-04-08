@@ -1,0 +1,8 @@
+[Unit]
+Description=RTags daemon
+
+Requires=rdm.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/rdm --verbose --log-file=/home/danil/.rdm/log --log-file-log-level=debug --log-timestamp --completion-logs --progress --data-dir=/home/danil/.rdm/data --completion-cache-size=20 --rp-nice-value=5 --validate-file-maps --watch-system-paths
