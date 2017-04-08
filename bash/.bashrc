@@ -30,6 +30,10 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 HISTSIZE=100000000
 HISTFILESIZE=20000000
 
+history_mrProper() {
+	nl ~/.bash_history |sort -k2 -k 1,1nr | uniq -f1 | sort -n | cut -f2 > /tmp/bash_history.clean
+	mv /tmp/bash_history.clean ~/.bash_history
+}
 
 # Colors
 Color_Off='\e[0m'
