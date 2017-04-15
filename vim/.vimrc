@@ -85,7 +85,7 @@ inoremap <expr><C-n> pumvisible() ? '<C-n>' : '<C-X><C-U>'
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return pumvisible() ? "\<C-y>" : "\<CR>"
+	return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 
 
@@ -156,16 +156,16 @@ let g:neocomplete#min_keyword_length = 1
 let g:neocomplete#sources#dictionary#dictionaries = {'default' : '', 'vimshell' : $HOME.'/.vimshell_hist'}
 
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+	let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+	let g:neocomplete#sources#omni#input_patterns = {}
 endif
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
+	let g:neocomplete#force_omni_input_patterns = {}
 endif
 if !exists('g:neocomplete#delimiter_patterns')
 	let g:neocomplete#delimiter_patterns= {}
