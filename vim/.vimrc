@@ -97,13 +97,13 @@ Plug 'mileszs/ack.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
 Plug 'junegunn/seoul256.vim', { 'do': 'cp -rf ./colors ~/.vim/' }
 Plug 'tpope/vim-abolish'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rhysd/vim-clang-format'
+Plug 'tpope/vim-commentary'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -188,6 +188,16 @@ nmap <leader>q :TagbarToggle<CR>
 
 " vim-better-whitespace
 autocmd BufWritePre * StripWhitespace
+
+
+" vim-commentary
+au FileType cpp.doxygen setlocal commentstring=//\ %s
+au FileType octave setlocal commentstring=#\ %s
+xmap <leader>c  <Plug>Commentary
+nmap <leader>c  <Plug>Commentary
+omap <leader>c  <Plug>Commentary
+nmap <leader>cc <Plug>CommentaryLine
+nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 
 " vim-clang-format
