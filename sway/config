@@ -200,8 +200,8 @@ bindsym XF86AudioPrev exec mpc prev
 
 ## Backlight
 # Monitor backlight
-bindsym XF86MonBrightnessUp   exec xbacklight -ctrl intel_backlight -inc 10 -steps 2
-bindsym XF86MonBrightnessDown exec xbacklight -ctrl intel_backlight -dec 10 -steps 2
+bindsym XF86MonBrightnessUp   exec xbacklight -ctrl intel_backlight -inc 10 -steps 1
+bindsym XF86MonBrightnessDown exec xbacklight -ctrl intel_backlight -dec 10 -steps 1
 
 # Keyboard backlight
 bindsym XF86KbdBrightnessUp   exec xbacklight -ctrl asus::kbd_backlight -inc 30
