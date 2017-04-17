@@ -209,6 +209,11 @@ nnoremap <Leader>cf :<C-u>ClangFormat<CR>
 vnoremap <Leader>cf :ClangFormat<CR>
 
 
+" vim-fugitive
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+
+
 " vim-rtags
 let g:rtagsMinCharsForCommandCompletion = 1
 au FileType cpp.doxygen set completefunc=RtagsCompleteFunc
