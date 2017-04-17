@@ -170,6 +170,10 @@ endif
 if !exists('g:neocomplete#delimiter_patterns')
 	let g:neocomplete#delimiter_patterns= {}
 endif
+if !exists('g:neocomplete#sources')
+	let g:neocomplete#sources = {}
+endif
+let g:neocomplete#sources.cpp = ['omni']
 let g:neocomplete#delimiter_patterns.cpp = ['::', '.', '->']
 
 au FileType css setlocal omnifunc=csscomplete#CompleteCSS
