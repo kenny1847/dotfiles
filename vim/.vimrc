@@ -211,7 +211,7 @@ vnoremap <Leader>cf :ClangFormat<CR>
 
 " vim-fugitive
 nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gd :Gvdiff<CR>
 
 
 " vim-rtags
