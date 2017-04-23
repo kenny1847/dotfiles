@@ -112,7 +112,7 @@ deploy_vim() {
 	echo "Deploying vim"
 	set -x
 	cp -r vim/.vim ~/
-	if ![[ -d ~/.vim/undo ]]; then
+	if ! [[ -d ~/.vim/undo ]]; then
 		mkdir ~/.vim/undo
 	fi
 	cp vim/.vimrc ~/
