@@ -8,3 +8,7 @@
 	name = Danil Dulin
 [push]
 	default = simple
+[gui]
+	fontui = -family \"DejaVu Sans\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"DejaVu Sans Mono\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	tabsize = 4
