@@ -150,9 +150,9 @@ map <leader>t :NERDTreeFind<CR>
 " NeoComplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 1
-let g:neocomplete#auto_completion_start_length = 1
-let g:neocomplete#min_keyword_length = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#auto_completion_start_length = 2
+let g:neocomplete#min_keyword_length = 4
 let g:neocomplete#sources#dictionary#dictionaries = {'default' : '', 'vimshell' : $HOME.'/.vimshell_hist'}
 
 if !exists('g:neocomplete#keyword_patterns')
@@ -173,7 +173,7 @@ endif
 if !exists('g:neocomplete#sources')
 	let g:neocomplete#sources = {}
 endif
-let g:neocomplete#sources.cpp = ['omni']
+let g:neocomplete#sources.cpp = ['omni', 'UltiSnips']
 let g:neocomplete#delimiter_patterns.cpp = ['::', '.', '->']
 
 au FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -205,8 +205,8 @@ nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 
 " vim-clang-format
-nnoremap <Leader>cf :<C-u>ClangFormat<CR>
-vnoremap <Leader>cf :ClangFormat<CR>
+nnoremap <Leader>mf :<C-u>ClangFormat<CR>
+vnoremap <Leader>mf :ClangFormat<CR>
 
 
 " vim-fugitive
@@ -216,8 +216,7 @@ nnoremap <Leader>gd :Gvdiff<CR>
 
 " vim-rtags
 let g:rtagsMinCharsForCommandCompletion = 1
-au FileType cpp.doxygen set completefunc=RtagsCompleteFunc
-au FileType cpp.doxygen set omnifunc=RtagsCompleteFunc
+au FileType cpp.doxygen setlocal omnifunc=RtagsCompleteFunc
 
 
 " ultisnips
