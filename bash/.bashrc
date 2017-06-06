@@ -31,8 +31,8 @@ HISTSIZE=100000000
 HISTFILESIZE=20000000
 
 history_mrProper() {
-	nl ~/.bash_history |sort -k2 -k 1,1nr | uniq -f1 | sort -n | cut -f2 > /tmp/bash_history.clean
-	mv /tmp/bash_history.clean ~/.bash_history
+	nl ~/.bash_history |sort -k2 -k 1,1nr | uniq -f1 | sort -n | cut -f2 | egrep -v ".*[а-яА-Я]+.*" > /tmp/bash_history.clean
+	mv -v /tmp/bash_history.clean ~/.bash_history
 }
 
 # Colors
