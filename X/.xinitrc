@@ -9,14 +9,21 @@ kbdd &
 syndaemon -i 1 -d -K
 
 # Multihead
-xrandr --output HDMI2 --auto --output HDMI1 --auto --right-of HDMI2 &
+# xrandr --output HDMI2 --auto --output HDMI1 --auto --right-of HDMI2 &
 
 # NVIDIA specific
-xrandr --setprovideroutputsource modesetting NVIDIA-0
-xrandr --auto
+# xrandr --setprovideroutputsource modesetting NVIDIA-0
+# xrandr --auto
 
 # Set background image
-sh ~/.fehbg &
+[[ -f ~/.fehbg ]] && sh ~/.fehbg &
 
-# Run WM
-i3
+# Start urxvt Deamon
+urxvt256c-mld -q -o -f &
+
+# Fix JVM apps
+wmname LG3D &
+
+# Start dwm
+dwmstatus &
+dwm
