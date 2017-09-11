@@ -37,6 +37,8 @@ set undoreload=10000
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 
+set completeopt=menuone,noselect
+
 au BufRead,BufNewFile *.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
 au BufRead,BufNewFile *.qml set filetype=qml
 au BufRead,BufNewFile *.i set filetype=swig
@@ -154,6 +156,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#auto_completion_start_length = 2
 let g:neocomplete#min_keyword_length = 4
 let g:neocomplete#sources#dictionary#dictionaries = {'default' : '', 'vimshell' : $HOME.'/.vimshell_hist'}
+let g:neocomplete#enable_auto_select = 0
 
 if !exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
