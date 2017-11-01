@@ -49,7 +49,6 @@ deploy_look() {
 	echo "Deploying look and feel"
 	set -x
 	cp -r look/Wallpapers ~/
-	cp look/.Xresources ~/
 	set +x
 }
 
@@ -88,6 +87,7 @@ deploy_X() {
 	echo "Deploying X"
 	set -x
 	cp X/.xinitrc ~/
+	cp X/.Xresources ~/
 	set +x
 }
 
