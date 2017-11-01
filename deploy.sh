@@ -17,7 +17,7 @@ if [[ $# -eq 0 ]]; then
 	for tg in "${targets[@]}"; do
 	   echo "    ${tg}"
 	done
-	echo "default target contains: bash git vim rtags symlinks acpilight"
+	echo "default target contains: bash git vim rtags symlinks"
 	exit
 fi
 
@@ -91,7 +91,6 @@ for option in $@; do
 		deploy_vim
 		deploy_rtags
 		deploy_symlinks
-		deploy_acpilight
 		;;
 	acpilight) deploy_acpilight ;;
 	bash) deploy_bash ;;
