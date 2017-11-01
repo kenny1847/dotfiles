@@ -157,7 +157,6 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#auto_completion_start_length = 2
 let g:neocomplete#min_keyword_length = 4
 let g:neocomplete#sources#dictionary#dictionaries = {'default' : '', 'vimshell' : $HOME.'/.vimshell_hist'}
-let g:neocomplete#enable_auto_select = 0
 
 if !exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
