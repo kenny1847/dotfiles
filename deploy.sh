@@ -16,6 +16,13 @@ deploy_bash() {
 	set +x
 }
 
+deploy_fonts() {
+	echo "Deploying fonts"
+	set -x
+	./dependencies/fonts/install.sh
+	set +x
+}
+
 deploy_git() {
 	echo "Deploying git"
 	set -x
@@ -79,7 +86,7 @@ if [[ $# -eq 0 ]]; then
 	for tg in "${targets[@]}"; do
 	   echo "    ${tg}"
 	done
-	echo "default target contains: bash git vim rtags symlinks X"
+	echo "default target contains: bash fonts git vim rtags symlinks X"
 	exit
 fi
 
@@ -87,6 +94,7 @@ for option in $@; do
 	case ${option} in
 	default)
 		deploy_bash
+		deploy_fonts
 		deploy_git
 		deploy_vim
 		deploy_rtags
@@ -95,6 +103,7 @@ for option in $@; do
 		;;
 	acpilight) deploy_acpilight ;;
 	bash) deploy_bash ;;
+	fonts) deploy_fonts ;;
 	git) deploy_git ;;
 	rtags) deploy_rtags ;;
 	symlinks) deploy_symlinks ;;
