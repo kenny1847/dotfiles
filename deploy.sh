@@ -5,7 +5,6 @@ declare -a targets=(
 	"acpilight"
 	"bash"
 	"git"
-	"i3blocks"
 	"look"
 	"rtags"
 	"symlinks"
@@ -19,7 +18,7 @@ if [[ $# -eq 0 ]]; then
 	for tg in "${targets[@]}"; do
 	   echo "    ${tg}"
 	done
-	echo "default target contains: bash git vim rtags symlinks look acpilight i3blocks"
+	echo "default target contains: bash git vim rtags symlinks look acpilight"
 	exit
 fi
 
@@ -43,16 +42,6 @@ deploy_git() {
 	echo "Deploying git"
 	set -x
 	cp git/.gitconfig ~/
-	set +x
-}
-
-deploy_i3blocks() {
-	echo "Deploying i3blocks"
-	set -x
-	if ! [[ -d ~/.config ]]; then
-		mkdir ~/.config
-	fi
-	cp -r i3blocks ~/.config/
 	set +x
 }
 
@@ -112,12 +101,10 @@ for option in $@; do
 		deploy_symlinks
 		deploy_look
 		deploy_acpilight
-		deploy_i3blocks
 		;;
 	acpilight) deploy_acpilight ;;
 	bash) deploy_bash ;;
 	git) deploy_git ;;
-	i3blocks) deploy_i3blocks ;;
 	look) deploy_look ;;
 	rtags) deploy_rtags ;;
 	symlinks) deploy_symlinks ;;
