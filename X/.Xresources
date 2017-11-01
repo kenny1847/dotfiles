@@ -10,15 +10,6 @@ Xft*rgba: rgb
 Xft*lcdfilter: lcddefault
 
 ! --------------------------------------------------------------------------------
-! Xterm settings
-! --------------------------------------------------------------------------------
-xterm*saveLines: 500000
-xterm*faceName: Terminus:style=Regular:size=14
-xterm*fullscreen: never
-xterm*utf8: 1
-xterm*cursorBlink: true
-
-! --------------------------------------------------------------------------------
 ! urxvt settings
 ! --------------------------------------------------------------------------------
  URxvt.jumpScroll: false
