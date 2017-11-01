@@ -1,5 +1,5 @@
 # Keyboard
-setxkbmap -layout us,ru -option grp:alt_shift_toggle -option ctrl:nocaps -option compose:ralt &
+setxkbmap -layout us,ru -option grp:win_space_toggle -option ctrl:nocaps -option compose:ralt -option altwin:swap_lalt_lwin &
 kbdd &
 
 # Load ~/.Xresources
@@ -21,8 +21,8 @@ syndaemon -i 1 -d -K
 # Start urxvt Deamon
 urxvt256c-mld -q -o -f &
 
-# Fix JVM apps
-wmname LG3D &
+# Notification manager
+dunst &
 
 # Start dwm
 dwmstatus &
