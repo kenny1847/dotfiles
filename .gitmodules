@@ -7,3 +7,6 @@
 [submodule "dependencies/rtags"]
 	path = dependencies/rtags
 	url = https://github.com/Andersbakken/rtags.git
+[submodule "dependencies/fonts"]
+	path = dependencies/fonts
+	url = https://github.com/powerline/fonts.git
