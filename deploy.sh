@@ -1,26 +1,5 @@
 #!/bin/bash
 
-declare -a targets=(
-	"default"
-	"acpilight"
-	"bash"
-	"git"
-	"rtags"
-	"symlinks"
-	"vim"
-	"X"
-)
-
-if [[ $# -eq 0 ]]; then
-	echo "Usage: ${0} targets"
-	echo "Available targets:"
-	for tg in "${targets[@]}"; do
-	   echo "    ${tg}"
-	done
-	echo "default target contains: bash git vim rtags symlinks"
-	exit
-fi
-
 deploy_acpilight() {
 	echo "Deploying acpilight"
 	set -x
@@ -82,6 +61,27 @@ deploy_X() {
 	cp X/.Xresources ~/
 	set +x
 }
+
+declare -a targets=(
+	"default"
+	"acpilight"
+	"bash"
+	"git"
+	"rtags"
+	"symlinks"
+	"vim"
+	"X"
+)
+
+if [[ $# -eq 0 ]]; then
+	echo "Usage: ${0} targets"
+	echo "Available targets:"
+	for tg in "${targets[@]}"; do
+	   echo "    ${tg}"
+	done
+	echo "default target contains: bash git vim rtags symlinks"
+	exit
+fi
 
 for option in $@; do
 	case ${option} in
