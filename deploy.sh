@@ -5,7 +5,6 @@ declare -a targets=(
 	"acpilight"
 	"bash"
 	"git"
-	"i3"
 	"i3blocks"
 	"look"
 	"rtags"
@@ -44,17 +43,6 @@ deploy_git() {
 	echo "Deploying git"
 	set -x
 	cp git/.gitconfig ~/
-	set +x
-}
-
-deploy_i3() {
-	echo "Deploying i3"
-	set -x
-	if ! [[ -d ~/.i3 ]]; then
-		mkdir ~/.i3
-	fi
-	cp i3/config ~/.i3/config
-	cp i3/.i3status.conf ~/
 	set +x
 }
 
@@ -129,7 +117,6 @@ for option in $@; do
 	acpilight) deploy_acpilight ;;
 	bash) deploy_bash ;;
 	git) deploy_git ;;
-	i3) deploy_i3 ;;
 	i3blocks) deploy_i3blocks ;;
 	look) deploy_look ;;
 	rtags) deploy_rtags ;;
