@@ -126,9 +126,6 @@ nmap <C-M><C-M> :A<CR>
 
 
 " ack
-if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
-endif
 if executable('rg')
 	let g:ackprg = 'rg --vimgrep --no-heading'
 endif
