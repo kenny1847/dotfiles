@@ -8,8 +8,9 @@ set laststatus=2
 
 set foldmethod=syntax
 
-let g:seoul256_background = 234
-colorscheme seoul256
+let g:solarized_visibility="low"
+set background=dark
+colorscheme solarized
 
 set shiftwidth=4
 set tabstop=4
@@ -101,7 +102,6 @@ Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
-Plug 'junegunn/seoul256.vim', { 'do': 'cp -rf ./colors ~/.vim/' }
 Plug 'tpope/vim-abolish'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rhysd/vim-clang-format'
@@ -111,6 +111,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-operator-user'
 Plug 'lyuts/vim-rtags'
+Plug 'altercation/vim-colors-solarized', { 'do': 'cp -rf ./colors ~/.vim/' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
