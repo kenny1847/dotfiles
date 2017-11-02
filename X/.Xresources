@@ -29,6 +29,7 @@ Xft*lcdfilter: lcddefault
  URxvt.lineSpace: 0
  URxvt.letterSpace: -1
  URxvt.meta8: false
+ URxvt.intensityStyles: false
 
 ! --------------------------------------------------------------------------------
 ! terminal colors
@@ -41,7 +42,7 @@ Xft*lcdfilter: lcddefault
 *pointerColorBackground: #586e75
 *pointerColorForeground: #93a1a1
 
-*color0: #073642
+*color0: #094352
 *color1: #dc322f
 *color2: #859900
 *color3: #b58900
