@@ -103,6 +103,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
 Plug 'tpope/vim-abolish'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rhysd/vim-clang-format'
 Plug 'tpope/vim-commentary'
@@ -188,6 +190,14 @@ inoremap <expr><C-g> neocomplete#undo_completion()
 " Tagbar
 let g:tagbar_left = 1
 nmap <leader>q :TagbarToggle<CR>
+
+
+" vim-airlane
+let g:airline_powerline_fonts=1
+let g:airline_theme='solarized'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#fnamemod=':t'
 
 
 " vim-better-whitespace
