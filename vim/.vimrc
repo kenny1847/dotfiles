@@ -190,6 +190,7 @@ inoremap <expr><C-g> neocomplete#undo_completion()
 
 " Tagbar
 let g:tagbar_left = 1
+let g:tagbar_sort = 0
 nmap <leader>q :TagbarToggle<CR>
 
 
