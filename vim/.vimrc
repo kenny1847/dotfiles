@@ -232,6 +232,7 @@ nmap <leader>cu <Plug>Commentary<Plug>Commentary
 " vim-clang-format
 nnoremap <Leader>mf :<C-u>ClangFormat<CR>
 vnoremap <Leader>mf :ClangFormat<CR>
+let g:clang_format#detect_style_file = 1
 
 
 " vim-fugitive
