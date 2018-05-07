@@ -2,7 +2,9 @@
 	hist = log --date-order --graph --pretty=format:'%Cred%h%Creset - %C(green)%ad%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
 	hh = log --date-order --pretty=format:'%Cred%h%Creset - %C(green)%ad%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=short -n 5
 	st = status
+	si = submodule init
 	su = submodule update
+	cdiff = diff --cached
 [user]
 	email = kenny1847@yandex-team.ru
 	name = Danil Dulin
