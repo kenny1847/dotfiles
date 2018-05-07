@@ -4,7 +4,7 @@
 	st = status
 	su = submodule update
 [user]
-	email = danil.dulin@gs-labs.ru
+	email = kenny1847@yandex-team.ru
 	name = Danil Dulin
 [push]
 	default = simple
