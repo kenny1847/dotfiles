@@ -43,10 +43,6 @@ set completeopt=menuone,noselect
 
 au BufRead,BufNewFile *.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
 au BufRead,BufNewFile *.qml set filetype=qml
-au BufRead,BufNewFile *.i set filetype=swig
-au BufRead,BufNewFile *.vsh,*.psh set filetype=glsl
-au BufRead,BufNewFile *.decl set filetype=qml
-au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *.m set filetype=octave
 au BufRead,BufNewFile *.tex set fenc=utf-8 ts=2 sw=2 sts=2 et fdm=indent foldlevel=20
 au FileType gitcommit set cc=72
@@ -179,12 +175,6 @@ if !exists('g:neocomplete#sources')
 endif
 let g:neocomplete#sources.cpp = ['omni', 'UltiSnips']
 let g:neocomplete#delimiter_patterns.cpp = ['::', '.', '->']
-
-au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 inoremap <expr><C-g> neocomplete#undo_completion()
 
