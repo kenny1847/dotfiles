@@ -97,6 +97,7 @@ Plug 'mileszs/ack.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
 Plug 'tpope/vim-abolish'
@@ -142,6 +143,24 @@ let g:fzf_layout = { 'down': '~30%' }
 nmap <leader>f :FZF<cr>
 
 
+" jedi
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#show_call_signatures = "1"
+let g:jedi#goto_command = "<leader>rj"
+let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "<leader>ri"
+let g:jedi#usages_command = "<leader>rf"
+let g:jedi#completions_command = ""
+let g:jedi#rename_command = "<leader>rw"
+let g:jedi#completions_enabled = 0
+let g:jedi#smart_auto_mappings = 0
+
+au FileType python setlocal omnifunc=jedi#completions
+
+
 " NerdTree
 map <leader>e :NERDTreeToggle<CR>
 map <leader>t :NERDTreeFind<CR>
@@ -167,6 +186,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 if !exists('g:neocomplete#force_omni_input_patterns')
 	let g:neocomplete#force_omni_input_patterns = {}
 endif
+let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 if !exists('g:neocomplete#delimiter_patterns')
 	let g:neocomplete#delimiter_patterns= {}
 endif
