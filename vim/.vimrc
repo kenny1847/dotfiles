@@ -100,6 +100,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
+Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-abolish'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -197,6 +198,22 @@ let g:neocomplete#sources.cpp = ['omni', 'UltiSnips']
 let g:neocomplete#delimiter_patterns.cpp = ['::', '.', '->']
 
 inoremap <expr><C-g> neocomplete#undo_completion()
+
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_python_checkers = ['flake8']
+
+nnoremap <Leader>mc :SyntasticCheck<CR>
+nnoremap <Leader>me :Errors<CR>
 
 
 " Tagbar
