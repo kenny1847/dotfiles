@@ -258,8 +258,8 @@ nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 
 " vim-clang-format
-nnoremap <Leader>mf :<C-u>ClangFormat<CR>
-vnoremap <Leader>mf :ClangFormat<CR>
+au FileType cpp.doxygen nnoremap <buffer> <Leader>mf :<C-u>ClangFormat<CR>
+au FileType cpp.doxygen vnoremap <buffer> <Leader>mf :ClangFormat<CR>
 let g:clang_format#detect_style_file = 1
 
 
