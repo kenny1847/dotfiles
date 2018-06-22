@@ -46,13 +46,14 @@ au BufRead,BufNewFile *.qml set filetype=qml
 au BufRead,BufNewFile *.m set filetype=octave
 au BufRead,BufNewFile *.tex set fenc=utf-8 ts=2 sw=2 sts=2 et fdm=indent foldlevel=20
 au FileType gitcommit set cc=72
-au FileType qf nnoremap <buffer> <C-T> <C-W><CR><C-W>T
 au FileType qf set cc=0
-au! Syntax qml source $HOME/.vim/syntax/qml.vim
+au FileType qf nnoremap <buffer> <C-T> <C-W><CR><C-W>T
+au FileType yaml set foldmethod=indent
+au Syntax qml source $HOME/.vim/syntax/qml.vim
 
 " 160-symbol column highlight
 let g:column_highlight = 0
-let g:column_number_highlight = 160
+let g:column_number_highlight = 120
 function! SwitchColumnHighlight()
 	if (g:column_highlight == 0)
 		let g:column_highlight = 1
@@ -88,7 +89,6 @@ function! s:my_cr_function()
 	return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 
-
 " VimPlug
 call plug#begin('~/.vim/plugged')
 
@@ -123,10 +123,8 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 call plug#end()
 
-
 " a
 nmap <C-M><C-M> :A<CR>
-
 
 " ack
 if executable('rg')
@@ -139,12 +137,10 @@ nnoremap <leader>s :Ack -w <C-r><C-w><CR>
 " CamelCaseMotion
 call camelcasemotion#CreateMotionMappings(',')
 
-
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
 nmap <leader>b :Buffers<cr>
 nmap <leader>f :FZF<cr>
-
 
 " jedi
 let g:jedi#auto_vim_configuration = 0
@@ -163,11 +159,9 @@ let g:jedi#smart_auto_mappings = 0
 
 au FileType python setlocal omnifunc=jedi#completions
 
-
 " NerdTree
 map <leader>e :NERDTreeToggle<CR>
 map <leader>t :NERDTreeFind<CR>
-
 
 " NeoComplete
 let g:neocomplete#enable_at_startup = 1
@@ -201,7 +195,6 @@ let g:neocomplete#delimiter_patterns.cpp = ['::', '.', '->']
 
 inoremap <expr><C-g> neocomplete#undo_completion()
 
-
 " syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -214,15 +207,13 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['flake8']
 
-nnoremap <Leader>mc :SyntasticCheck<CR>
+nnoremap <Leader>ml :SyntasticCheck<CR>
 nnoremap <Leader>me :Errors<CR>
-
 
 " Tagbar
 let g:tagbar_left = 1
 let g:tagbar_sort = 0
 nmap <leader>q :TagbarToggle<CR>
-
 
 " vim-airlane
 let g:airline_powerline_fonts=1
@@ -242,11 +233,8 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.linenr = 'Ξ'
 
-
-
 " vim-better-whitespace
 autocmd BufWritePre * StripWhitespace
-
 
 " vim-commentary
 au FileType cpp.doxygen setlocal commentstring=//\ %s
@@ -257,22 +245,18 @@ omap <leader>c  <Plug>Commentary
 nmap <leader>cc <Plug>CommentaryLine
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
-
 " vim-clang-format
 au FileType cpp.doxygen nnoremap <buffer> <Leader>mf :<C-u>ClangFormat<CR>
 au FileType cpp.doxygen vnoremap <buffer> <Leader>mf :ClangFormat<CR>
 let g:clang_format#detect_style_file = 1
 
-
 " vim-fugitive
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gd :Gvdiff<CR>
 
-
 " vim-rtags
 let g:rtagsMinCharsForCommandCompletion = 1
 au FileType cpp.doxygen setlocal omnifunc=RtagsCompleteFunc
-
 
 " ultisnips
 set runtimepath+=~/.vim/snippets
@@ -280,7 +264,6 @@ set runtimepath+=~/.vim/snippets
 let g:UltiSnipsExpandTrigger="<C-t>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-
 
 " yapf
 au FileType python nnoremap <buffer> <leader>mf :call yapf#YAPF()<cr>
