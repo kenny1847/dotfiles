@@ -115,7 +115,6 @@ Plug 'altercation/vim-colors-solarized', { 'do': 'cp -rf ./colors ~/.vim/' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
@@ -175,11 +174,6 @@ let g:syntastic_python_checkers = ['flake8']
 
 nnoremap <Leader>ml :SyntasticCheck<CR>
 nnoremap <Leader>me :Errors<CR>
-
-" Tagbar
-let g:tagbar_left = 1
-let g:tagbar_sort = 0
-nmap <leader>q :TagbarToggle<CR>
 
 " vim-airlane
 let g:airline_powerline_fonts=1
