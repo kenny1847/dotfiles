@@ -5,4 +5,7 @@ Requires=rdm.socket
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/rdm --verbose --log-file=/home/danil/.rdm/log --log-file-log-level=debug --log-timestamp --completion-logs --progress --data-dir=/home/danil/.rdm/data --completion-cache-size=20 --rp-nice-value=5 --validate-file-maps --watch-system-paths
+ExecStart=/usr/local/bin/rdm --log-file=/tmp/rtags.log --inactivity-timeout 3000 --completion-cache-size=20 --rp-nice-value=5 --validate-file-maps --watch-system-paths --no-filesystem-watcher
+ExecStartPost=/bin/sh -c "echo +1 > /proc/$MAINPID/autogroup"
+Nice=1
+CPUSchedulingPolicy=idle
