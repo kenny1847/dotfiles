@@ -7,7 +7,7 @@ set ttymouse=urxvt
 set laststatus=2
 set backspace=2
 
-set foldmethod=syntax
+set nofoldenable
 
 let g:solarized_visibility="low"
 set background=dark
@@ -20,7 +20,6 @@ set noexpandtab
 
 set modeline
 set modelines=5
-set foldlevel=5
 
 set exrc
 set secure
