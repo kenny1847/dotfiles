@@ -40,17 +40,17 @@ set listchars=tab:>-,trail:~,extends:>,precedes:<
 
 set completeopt=menuone,noselect
 
-au BufRead,BufNewFile *.c,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
+au BufRead,BufNewFile *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
 au BufRead,BufNewFile *.qml set filetype=qml
 au BufRead,BufNewFile *.m set filetype=octave
 au BufRead,BufNewFile *.tex set fenc=utf-8 ts=2 sw=2 sts=2 et fdm=indent foldlevel=20
 au FileType gitcommit set cc=72
 au FileType qf set cc=0
 au FileType qf nnoremap <buffer> <C-T> <C-W><CR><C-W>T
-au FileType yaml set foldmethod=indent
+au FileType yaml set ts=4 sw=4 sts=4 et fdm=indent
 au Syntax qml source $HOME/.vim/syntax/qml.vim
 
-" 160-symbol column highlight
+" 120-symbol column highlight
 let g:column_highlight = 0
 let g:column_number_highlight = 120
 function! SwitchColumnHighlight()
@@ -140,19 +140,25 @@ nmap <leader>b :Buffers<cr>
 nmap <leader>f :FZF<cr>
 
 " jedi
+let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
-let g:jedi#show_call_signatures = "1"
-let g:jedi#goto_command = "<leader>rj"
+let g:jedi#show_call_signatures = 1
+
+let g:jedi#goto_command = ""
 let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "<leader>ri"
-let g:jedi#usages_command = "<leader>rf"
+let g:jedi#documentation_command = ""
+let g:jedi#usages_command = ""
 let g:jedi#completions_command = ""
-let g:jedi#rename_command = "<leader>rw"
+let g:jedi#rename_command = ""
 let g:jedi#completions_enabled = 0
 let g:jedi#smart_auto_mappings = 0
+au FileType python noremap <buffer> <Leader>rj :call jedi#goto()<CR>
+au FileType python noremap <buffer> <Leader>ri :call jedi#show_documentation()<CR>
+au FileType python noremap <buffer> <Leader>rw :call jedi#rename()<CR>
+au FileType python noremap <buffer> <Leader>rf :call jedi#usages()<CR>
 
 au FileType python setlocal omnifunc=jedi#completions
 
@@ -171,6 +177,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['flake8']
+
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 
 nnoremap <Leader>ml :SyntasticCheck<CR>
 nnoremap <Leader>me :Errors<CR>
@@ -217,6 +225,27 @@ nnoremap <Leader>gd :Gvdiff<CR>
 " vim-rtags
 let g:rtagsMinCharsForCommandCompletion = 1
 au FileType cpp.doxygen setlocal omnifunc=RtagsCompleteFunc
+
+let g:rtagsUseDefaultMappings = 0
+au FileType cpp.doxygen noremap <buffer> <Leader>ri :call rtags#SymbolInfo()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rj :call rtags#JumpTo(g:SAME_WINDOW)<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rJ :call rtags#JumpTo(g:SAME_WINDOW, { '--declaration-only' : '' })<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rS :call rtags#JumpTo(g:H_SPLIT)<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rV :call rtags#JumpTo(g:V_SPLIT)<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rT :call rtags#JumpTo(g:NEW_TAB)<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rp :call rtags#JumpToParent()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rf :call rtags#FindRefs()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rF :call rtags#FindRefsCallTree()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rn :call rtags#FindRefsByName(input("Pattern? ", "", "customlist,rtags#CompleteSymbols"))<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rs :call rtags#FindSymbols(input("Pattern? ", "", "customlist,rtags#CompleteSymbols"))<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rr :call rtags#ReindexFile()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rl :call rtags#ProjectList()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rw :call rtags#RenameSymbolUnderCursor()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rv :call rtags#FindVirtuals()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rb :call rtags#JumpBack()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rC :call rtags#FindSuperClasses()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rc :call rtags#FindSubClasses()<CR>
+au FileType cpp.doxygen noremap <buffer> <Leader>rd :call rtags#Diagnostics()<CR>
 
 " ultisnips
 set runtimepath+=~/.vim/snippets
