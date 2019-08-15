@@ -25,6 +25,7 @@ set exrc
 set secure
 
 set wildmenu
+set wildmode=list:longest,full
 
 set noswapfile
 set nobackup
@@ -47,7 +48,7 @@ au BufRead,BufNewFile *.tex set fenc=utf-8 ts=2 sw=2 sts=2 et fdm=indent foldlev
 au FileType gitcommit set cc=72
 au FileType qf set cc=0
 au FileType qf nnoremap <buffer> <C-T> <C-W><CR><C-W>T
-au FileType yaml set ts=4 sw=4 sts=4 et fdm=indent
+au FileType yaml set ts=2 sw=2 sts=2 et fdm=indent
 au Syntax qml source $HOME/.vim/syntax/qml.vim
 
 " 120-symbol column highlight
@@ -106,7 +107,6 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'rhysd/vim-clang-format'
 Plug 'tpope/vim-commentary'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'tpope/vim-dispatch'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-operator-user'
@@ -127,9 +127,8 @@ nmap <C-M><C-M> :A<CR>
 if executable('rg')
 	let g:ackprg = 'rg --vimgrep --no-heading'
 endif
-let g:ack_use_dispatch = 1
-nnoremap <leader>s :Ack -w <C-r><C-w><CR>
-
+nnoremap <leader>S :Ack! <C-r><C-w>
+nnoremap <leader>s :Ack! <C-r><C-w><CR>
 
 " CamelCaseMotion
 call camelcasemotion#CreateMotionMappings(',')
@@ -178,10 +177,17 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['flake8']
 
-let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
+let g:syntastic_cpp_compiler_options = "-std=c++17 -Wall -Wextra -Wpedantic"
+
+let g:syntastic_mode_map = {
+	\ 'mode': 'passive',
+	\ 'active_filetypes': [],
+	\ 'passive_filetypes': ["c", "cpp"]
+	\ }
 
 nnoremap <Leader>ml :SyntasticCheck<CR>
 nnoremap <Leader>me :Errors<CR>
+nnoremap <Leader>mc :SyntasticCheck<CR>
 
 " vim-airlane
 let g:airline_powerline_fonts=1
@@ -256,3 +262,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
 " yapf
 au FileType python nnoremap <buffer> <leader>mf :call yapf#YAPF()<cr>
+
+
+" yamlfmt
+au FileType yaml nnoremap <buffer> <leader>mf :!yamlfmt -w %<cr>
