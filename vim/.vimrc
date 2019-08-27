@@ -71,7 +71,10 @@ nmap <C-B><C-B> :call SwitchColumnHighlight()<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w <C-w>
+nnoremap <leader>wt :tabclose<cr>
 nnoremap <silent> <C-n> :nohl<CR>
+nmap <leader>P :pwd<cr>
+nmap <leader>p :cd -<cr>
 
 vmap <C-c> "+y
 vmap <C-v> c<ESC>"+p
@@ -136,6 +139,7 @@ call camelcasemotion#CreateMotionMappings(',')
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
 nmap <leader>b :Buffers<cr>
+nmap <leader>F :FZF
 nmap <leader>f :FZF<cr>
 
 " jedi
@@ -162,6 +166,7 @@ au FileType python noremap <buffer> <Leader>rf :call jedi#usages()<CR>
 au FileType python setlocal omnifunc=jedi#completions
 
 " NerdTree
+let g:NERDTreeChDirMode = 0
 map <leader>e :NERDTreeToggle<CR>
 map <leader>t :NERDTreeFind<CR>
 
