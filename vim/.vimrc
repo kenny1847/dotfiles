@@ -3,7 +3,7 @@ set hlsearch
 set incsearch
 set number
 set mouse=a
-set ttymouse=urxvt
+" set ttymouse=urxvt " disable to fix tmux
 set laststatus=2
 set backspace=2
 
@@ -16,7 +16,7 @@ colorscheme solarized
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-set noexpandtab
+set expandtab
 
 set modeline
 set modelines=5
@@ -40,6 +40,10 @@ set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 
 set completeopt=menuone,noselect
+
+au BufNewFile,BufRead *.pb.txt setlocal ft=proto-text
+au BufNewFile,BufRead *.yql setlocal ft=yql
+au BufNewFile,BufRead ya.make setlocal ft=yamake
 
 au BufRead,BufNewFile *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
 au BufRead,BufNewFile *.qml set filetype=qml
@@ -97,12 +101,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-scripts/a.vim'
 Plug 'mileszs/ack.vim'
+Plug 'psf/black'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
+Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-abolish'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -119,7 +125,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'SirVer/ultisnips'
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 call plug#end()
 
@@ -132,6 +137,9 @@ if executable('rg')
 endif
 nnoremap <leader>S :Ack! <C-r><C-w>
 nnoremap <leader>s :Ack! <C-r><C-w><CR>
+
+" black
+au FileType python nnoremap <buffer> <leader>mf :Black<CR>
 
 " CamelCaseMotion
 call camelcasemotion#CreateMotionMappings(',')
@@ -194,6 +202,12 @@ nnoremap <Leader>ml :SyntasticCheck<CR>
 nnoremap <Leader>me :Errors<CR>
 nnoremap <Leader>mc :SyntasticCheck<CR>
 
+" Tagbar
+let g:tagbar_left = 0
+let g:tagbar_sort = 0
+nmap <leader>q :TagbarToggle<CR>
+
+
 " vim-airlane
 let g:airline_powerline_fonts=1
 let g:airline_theme='solarized'
@@ -218,6 +232,7 @@ autocmd BufWritePre * StripWhitespace
 " vim-commentary
 au FileType cpp.doxygen setlocal commentstring=//\ %s
 au FileType octave setlocal commentstring=#\ %s
+au FileType yql setlocal commentstring=--\ %s
 xmap <leader>c  <Plug>Commentary
 nmap <leader>c  <Plug>Commentary
 omap <leader>c  <Plug>Commentary
@@ -264,10 +279,6 @@ set runtimepath+=~/.vim/snippets
 let g:UltiSnipsExpandTrigger="<C-t>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-
-" yapf
-au FileType python nnoremap <buffer> <leader>mf :call yapf#YAPF()<cr>
-
 
 " yamlfmt
 au FileType yaml nnoremap <buffer> <leader>mf :!yamlfmt -w %<cr>
