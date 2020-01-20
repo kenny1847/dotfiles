@@ -34,6 +34,11 @@ deploy_symlinks() {
     set +x
 }
 
+deploy_tmux() {
+    cp -r tmux/tmux ~/.tmux
+    cp tmux/tmux.conf ~/.tmux.conf
+}
+
 deploy_vim() {
     echo "Deploying vim"
     set -x
@@ -60,6 +65,7 @@ declare -a targets=(
     "git"
     "rtags"
     "symlinks"
+    "tmux"
     "vim"
     "X"
 )
@@ -80,14 +86,14 @@ for option in $@; do
         deploy_bash
         deploy_git
         deploy_vim
-        deploy_rtags
-        deploy_symlinks
+        deploy_tmux
         deploy_X
         ;;
     bash) deploy_bash ;;
     git) deploy_git ;;
     rtags) deploy_rtags ;;
     symlinks) deploy_symlinks ;;
+    tmux) deploy_tmux ;;
     vim) deploy_vim ;;
     [xX]) deploy_X ;;
     *) echo "Unknown target" ;;
