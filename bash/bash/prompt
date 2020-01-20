@@ -12,16 +12,188 @@ if [[ ! ${PROMPT_COMMAND} =~ "history -a;" ]]; then
 fi
 export PROMPT_COMMAND
 
-# Check if __git_ps1 is available
-has_git_prompt=0
-if [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]]; then
-    source /usr/share/git-core/contrib/completion/git-prompt.sh
-    has_git_prompt=1
-elif [[ -f /usr/share/git/git-prompt.sh ]]; then
-    source /usr/share/git/git-prompt.sh
-    has_git_prompt=1
-fi
+function callable {
+    [ -n "$1" ] || return 1
+    type -p "$1" >/dev/null
+}
 
+function __upwards {
+    local h
+    local t
+    h="$1"
+    t=""
+    [ "${h}" != "/" ] || h=""
+    while [ -n "${h}" ]; do
+        "${@:2}" "${h}" "${t}" || return 0
+        [ -z "${t}" ] || t="/${t}"
+        t="${h##*/}${t}"
+        h="${h%/*}"
+    done
+    "${@:2}" "${h}" "${t}" || return 1
+    return 0
+}
+
+function __strip_common_suffix {
+    local path
+    local path_other
+    path="$1"
+    path_other="$2"
+    prefix="${path%/}"
+    prefix_other="${path_other%/}"
+    while [ "${prefix##*/}" = "${prefix_other##*/}" ]; do
+        prefix="${prefix%/*}"
+        prefix_other="${prefix_other%/*}"
+    done
+    echo "${prefix#/}"
+}
+
+function __up_arcadia_path {
+    if [ -f "$1/.arcadia.root" ]; then
+        echo "/$2"
+        return 1
+    fi
+    return 0
+}
+
+function __svn_info {
+    callable sqlite3 || return 1
+    [ -f "$1/wc.db" ] || return 1
+    local svn_path
+    local svn_prefix
+    local svn_revision
+    svn_path="$(sqlite3 "$1/wc.db" "select repos_path from nodes_current where local_relpath=\"$2\"" 2>/dev/null)"
+    svn_prefix="$(__strip_common_suffix "${svn_path}" "$(pwd -P)")"
+    svn_revision="$(sqlite3 "$1/wc.db" "select revision from nodes_current where local_relpath=\"$2\"" 2>/dev/null)"
+    echo -n "${svn_prefix}@${svn_revision}"
+}
+
+function __git_info {
+    [ -f "$1/HEAD" ] || return 1
+    local git_head
+    local git_ref
+    git_head="$(cat "$1/HEAD" 2>/dev/null)"
+    if [ "${git_head:0:5}" = "ref: " ]; then
+        git_ref="${git_head#ref: }"
+        git_ref="${git_ref#refs/}"
+        echo -n "${git_ref}"
+    else
+        echo -n "[${git_head:0:7}]"
+    fi
+}
+
+function __hg_info {
+    [ -f "$1/branch" ] || return 1
+    echo -n "$(cat "$1/branch" 2>/dev/null)"
+}
+
+function __arc_info {
+    [ -f "$1/HEAD" ] || return 1
+    local arc_remote
+    local arc_id
+    local arc_symbolic
+    while read -r line; do
+        if [ "${line:0:7}" == "Remote:" ]; then
+            arc_remote="${line#Remote: }"
+        elif [ "${line:0:3}" == "Id:" ]; then
+            arc_id="${line#Id: }"
+        elif [ "${line:0:9}" == "Symbolic:" ]; then
+            arc_symbolic="${line#Symbolic: }"
+        fi
+    done <<< "$(cat "$1/HEAD" 2>/dev/null)"
+    arc_remote="${arc_remote#\"}"
+    arc_remote="${arc_remote%\"}"
+    arc_id="${arc_id#\"}"
+    arc_id="${arc_id%\"}"
+    arc_symbolic="${arc_symbolic#\"}"
+    arc_symbolic="${arc_symbolic%\"}"
+    if [ -n "${arc_symbolic}" ]; then
+        echo -n "${arc_symbolic}"
+    elif [ -n "${arc_id}" ]; then
+        echo -n "[${arc_id}]"
+    fi
+    if [ -n "${arc_remote}" ]; then
+        echo -n ":${arc_remote}"
+    fi
+}
+
+function __arcanum_info {
+    [ -f "$1/pr" ] || return 1
+    echo -n "$(cat "$1/pr")"
+}
+
+function __up_vcs {
+    local name
+    name="$1"
+    name="${name##*/}"
+    if callable sqlite3 && [ -d "$1/.svn" ]; then
+        __prompt_svn+=("$(__svn_info "$1/.svn" "$2")")
+    fi
+    if [ -f "$1/HEAD" -a -d "$1/refs" -a -d "$1/objects" ]; then
+        __prompt_git+=("!$(__git_info "$1")")
+        __prompt_git_bare=true
+    fi
+    if ! ${__prompt_git_bare} && [ -d "$1/.git" ]; then
+        __prompt_git+=("$(__git_info "$1/.git")")
+    fi
+    if [ -d "$1/.hg" ]; then
+        __prompt_hg+=("$(__hg_info "$1/.hg")")
+    fi
+    if [ -d "$1/.arc" -a -f "$1/.arc/HEAD" ]; then
+        __prompt_arc+=("$(__arc_info "$1/.arc")")
+    fi
+    if [ -d "$1/.arcanum" -a -f "$1/.arcanum/pr" ]; then
+        __prompt_arcanum+=("$(__arcanum_info "$1/.arcanum")")
+    fi
+
+    return 0
+}
+
+function __prompt_vcs {
+    VCS_COLOR=${BYellow}
+    VCS_BRACES_COLOR=${BRed}
+    VCS_STATUS_COLOR=${BRed}
+    __prompt_svn=()
+    __prompt_git=()
+    __prompt_hg=()
+    __prompt_git_bare=false
+    __prompt_arc=()
+    __prompt_arcanum=()
+    __upwards "$(pwd -P)" __up_vcs
+    result=""
+    for entry in "${__prompt_svn[@]}"; do
+        result+="${VCS_BRACES_COLOR}(${Color_Off}"
+        result+="${VCS_COLOR}svn:${Color_Off}"
+        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
+        result+="$VCS_BRACES_COLOR)${Color_Off} "
+    done
+    for entry in "${__prompt_git[@]}"; do
+        result+="${VCS_BRACES_COLOR}(${Color_Off}"
+        result+="${VCS_COLOR}git:${Color_Off}"
+        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
+        result+="$VCS_BRACES_COLOR)${Color_Off} "
+    done
+    for entry in "${__prompt_hg[@]}"; do
+        result+="${VCS_BRACES_COLOR}(${Color_Off}"
+        result+="${VCS_COLOR}hg:${Color_Off}"
+        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
+        result+="$VCS_BRACES_COLOR)${Color_Off} "
+    done
+    for entry in "${__prompt_arc[@]}"; do
+        result+="${VCS_BRACES_COLOR}(${Color_Off}"
+        result+="${VCS_COLOR}arc:${Color_Off}"
+        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
+        result+="$VCS_BRACES_COLOR)${Color_Off} "
+    done
+    for entry in "${__prompt_arcanum[@]}"; do
+        result+="${VCS_BRACES_COLOR}(${Color_Off}"
+        result+="${VCS_COLOR}arcanum:${Color_Off}"
+        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
+        result+="$VCS_BRACES_COLOR)${Color_Off} "
+    done
+    if [[ ! -z ${result} ]]; then
+        echo -ne "${result}"
+    fi
+}
 
 if [[ ! ${use_color} ]]; then
     PS1='\u@\h \w \$ '
@@ -38,10 +210,6 @@ else
     PS1+="\[${AT_COLOR}\]@\[${Color_Off}\]"
     PS1+="\[${HOST_COLOR}\]\h\[${Color_Off}\] "
     PS1+="\[${PATH_COLOR}\]\w\[${Color_Off}\] "
-    if [[ ${has_git_prompt} ]]; then
-        PS1+="\[$BRed\]"
-        PS1+='$(__git_ps1 "(%s) ")'
-        PS1+="\[$Color_Off\]"
-    fi
+    PS1+='$(__prompt_vcs)'
     PS1+="\[${USER_TYPE_SIGN_COLOR}\]\$\[${Color_Off}\] "
 fi
