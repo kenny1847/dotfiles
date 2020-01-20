@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if ${use_color} ; then
+    alias ls='ls --color=auto'
+    alias grep='grep --colour=auto'
+    alias egrep='egrep --colour=auto'
+    alias fgrep='fgrep --colour=auto'
+fi
+
+alias rm='rm -v'
+alias cp='cp -v'
+alias mv='mv -v'
+alias ll='ls -l'
+alias la='ls -la'

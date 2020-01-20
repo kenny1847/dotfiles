@@ -1,0 +1,47 @@
+#!/bin/bash
+
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}
+if [[ ! ${PROMPT_COMMAND} =~ "history -r;" ]]; then
+    PROMPT_COMMAND="history -r; ${PROMPT_COMMAND}"
+fi
+if [[ ! ${PROMPT_COMMAND} =~ "history -c;" ]]; then
+    PROMPT_COMMAND="history -c; ${PROMPT_COMMAND}"
+fi
+if [[ ! ${PROMPT_COMMAND} =~ "history -a;" ]]; then
+    PROMPT_COMMAND="history -a; ${PROMPT_COMMAND}"
+fi
+export PROMPT_COMMAND
+
+# Check if __git_ps1 is available
+has_git_prompt=0
+if [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]]; then
+    source /usr/share/git-core/contrib/completion/git-prompt.sh
+    has_git_prompt=1
+elif [[ -f /usr/share/git/git-prompt.sh ]]; then
+    source /usr/share/git/git-prompt.sh
+    has_git_prompt=1
+fi
+
+
+if [[ ! ${use_color} ]]; then
+    PS1='\u@\h \w \$ '
+else
+    NAME_COLOR=${BGreen}
+    AT_COLOR=${BYellow}
+    HOST_COLOR=${BRed}
+    PATH_COLOR=${BBlue}
+    USER_TYPE_SIGN_COLOR=${BBlue}
+    if [[ ${EUID} == 0 ]]; then
+        NAME_COLOR=${BRed}
+    fi
+    PS1="\[${NAME_COLOR}\]\u\[${Color_Off}\]"
+    PS1+="\[${AT_COLOR}\]@\[${Color_Off}\]"
+    PS1+="\[${HOST_COLOR}\]\h\[${Color_Off}\] "
+    PS1+="\[${PATH_COLOR}\]\w\[${Color_Off}\] "
+    if [[ ${has_git_prompt} ]]; then
+        PS1+="\[$BRed\]"
+        PS1+='$(__git_ps1 "(%s) ")'
+        PS1+="\[$Color_Off\]"
+    fi
+    PS1+="\[${USER_TYPE_SIGN_COLOR}\]\$\[${Color_Off}\] "
+fi
