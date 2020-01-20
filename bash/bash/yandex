@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -d "${HOME}/.ya.completion/bash/" ]; then
+    for f in $(ls "${HOME}/.ya.completion/bash/"); do
+        source "${HOME}/.ya.completion/bash/${f}";
+    done;
+fi
+
+export ARCADIA_ROOT="/home/kenny1847/arc/arcadia"
+export YT_PROXY="hahn.yt.yandex.net"
+
+alias ya="${ARCADIA_ROOT}/ya"

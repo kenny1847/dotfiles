@@ -11,28 +11,10 @@ source "${HOME}/.bash/alias"
 source "${HOME}/.bash/export"
 source "${HOME}/.bash/prompt"
 
-history_mrProper() {
-    nl ~/.bash_history |sort -k2 -k 1,1nr | uniq -f1 | sort -n | cut -f2 | egrep -v ".*[а-яА-Я]+.*" > /tmp/bash_history.clean
-    mv -v /tmp/bash_history.clean ~/.bash_history
-}
-
-go-tmux() {
-    SESSION=dev
-    if [[ $# -gt 0 ]]; then
-        SESSION=${1}
-    fi
-    tmux -2 attach -t ${SESSION} || tmux -2 new -s ${SESSION}
-}
-
-
-# CUSTOM YANDEX
-if [ -d "${HOME}/.ya.completion/bash/" ]; then
-    for f in $(ls "${HOME}/.ya.completion/bash/"); do
-        source "${HOME}/.ya.completion/bash/${f}";
+if [[ -d "${HOME}/.bash/helpers/" ]]; then
+    for f in $(ls "${HOME}/.bash/helpers/"); do
+        source "${HOME}/.bash/helpers/${f}";
     done;
 fi
 
-export ARCADIA_ROOT="/home/kenny1847/arc/arcadia"
-export YT_PROXY="hahn.yt.yandex.net"
-
-alias ya="${ARCADIA_ROOT}/ya"
+source "${HOME}/.bash/yandex"

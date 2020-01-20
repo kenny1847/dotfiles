@@ -1,0 +1,17 @@
+#!/bin/bash
+
+go-tmux() {
+    SESSION=dev
+    if [[ $# -gt 0 ]]; then
+        SESSION=${1}
+    fi
+    tmux -2 attach -t ${SESSION} || tmux -2 new -s ${SESSION}
+}
+
+__tmux_sessions() {
+    local subcommands="$(tmux ls | cut -f1 -d:)"
+    COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+    return 0
+}
+
+complete -F __tmux_sessions go-tmux
