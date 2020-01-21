@@ -9,8 +9,8 @@ go-tmux() {
 }
 
 __tmux_sessions() {
-    local subcommands="$(tmux ls | cut -f1 -d:)"
-    COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+    local subcommands="$(tmux ls 2> /dev/null | cut -f1 -d:)"
+    COMPREPLY=( $(compgen -W "${subcommands}" -- ${COMP_WORDS[COMP_CWORD]}) )
     return 0
 }
 
