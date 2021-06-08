@@ -6,7 +6,10 @@ if [ -d "${HOME}/.ya.completion/bash/" ]; then
     done;
 fi
 
-export ARCADIA_ROOT="/home/kenny1847/arc/arcadia"
+export ARCADIA_ROOT="${HOME}/arc/arcadia"
 export YT_PROXY="hahn.yt.yandex.net"
 
 alias ya="${ARCADIA_ROOT}/ya"
+alias yql="ya yql"
+alias yt="ya tool yt"
+alias jq="ya tool jq"
