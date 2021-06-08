@@ -4,4 +4,11 @@ export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000000
 export HISTFILESIZE=20000000
 
+if [[ -d ${HOME}/.cargo/bin ]]; then
+    export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+
 export EDITOR=vim
+if [[ $(type -p fd) ]]; then
+    export FZF_DEFAULT_COMMAND='fd --type f --follow'
+fi
