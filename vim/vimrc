@@ -69,13 +69,15 @@ function! SwitchColumnHighlight()
 		set textwidth=0
 	endif
 endfunction
+au FileType cpp.doxygen let g:column_number_highlight = 120
+au FileType python let g:column_number_highlight = 88
 
 nmap <C-B><C-B> :call SwitchColumnHighlight()<CR>
 
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w <C-w>
-nnoremap <leader>wt :tabclose<cr>
+nnoremap <leader>we :tabclose<cr>
 nnoremap <silent> <C-n> :nohl<CR>
 nmap <leader>P :pwd<cr>
 nmap <leader>p :cd -<cr>
@@ -89,12 +91,12 @@ nnoremap <C-l> :tabnext<CR>
 nnoremap <leader>z :-tabmove<CR>
 nnoremap <leader>x :+tabmove<CR>
 
-inoremap <expr><C-n> pumvisible() ? '<C-n>' : '<C-X><C-U>'
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr><C-n> pumvisible() ? '<C-n>' : '<C-X><C-]>'
+
+function! GetArcadiaLink()
+    echom "https://a.yandex-team.ru/arc/trunk/arcadia/" . expand("%") . "#L" . line(".")
 endfunction
+nnoremap <leader>V :call GetArcadiaLink()<CR>
 
 " VimPlug
 call plug#begin('~/.vim/plugged')
@@ -135,7 +137,7 @@ nmap <C-M><C-M> :A<CR>
 if executable('rg')
 	let g:ackprg = 'rg --vimgrep --no-heading'
 endif
-nnoremap <leader>S :Ack! <C-r><C-w>
+nnoremap <leader>S :Ack! <C-r><C-w><Space>
 nnoremap <leader>s :Ack! <C-r><C-w><CR>
 
 " black
@@ -146,9 +148,11 @@ call camelcasemotion#CreateMotionMappings(',')
 
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
-nmap <leader>b :Buffers<cr>
-nmap <leader>F :FZF
-nmap <leader>f :FZF<cr>
+nmap <leader>b :Buffers<CR>
+nmap <leader>F :FZF<Space>
+nmap <leader>f :FZF<CR>
+nmap <leader>G :Tags<Space>
+nmap <leader>g :Tags <C-r><C-w><CR>
 
 " jedi
 let g:jedi#auto_initialization = 1
