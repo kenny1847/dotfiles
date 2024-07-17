@@ -296,4 +296,6 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 " yamlfmt
 au FileType yaml nnoremap <buffer> <leader>mf :!taxi-yamlfmt %<cr>
 
-source $HOME/.arcadia.vimrc
+if filereadable(expand('$HOME/.arcadia.vimrc'))
+    source $HOME/.arcadia.vimrc
+endif
