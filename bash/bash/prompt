@@ -149,9 +149,9 @@ function __up_vcs {
 }
 
 function __prompt_vcs {
-    VCS_COLOR=${BYellow}
-    VCS_BRACES_COLOR=${BRed}
-    VCS_STATUS_COLOR=${BRed}
+    VCS_COLOR=${Yellow}
+    VCS_BRACES_COLOR=${Red}
+    VCS_STATUS_COLOR=${Red}
     __prompt_svn=()
     __prompt_git=()
     __prompt_hg=()
@@ -198,18 +198,18 @@ function __prompt_vcs {
 if [[ ! ${use_color} ]]; then
     PS1='\u@\h \w \$ '
 else
-    NAME_COLOR=${BGreen}
-    AT_COLOR=${BYellow}
-    HOST_COLOR=${BRed}
-    PATH_COLOR=${BBlue}
-    USER_TYPE_SIGN_COLOR=${BBlue}
+    NAME_COLOR=${Green}
+    AT_COLOR=${Yellow}
+    HOST_COLOR=${Red}
+    PATH_COLOR=${Blue}
+    USER_TYPE_SIGN_COLOR=${Blue}
     if [[ ${EUID} == 0 ]]; then
-        NAME_COLOR=${BRed}
+        NAME_COLOR=${Red}
     fi
     PS1="\[${NAME_COLOR}\]\u\[${Color_Off}\]"
     PS1+="\[${AT_COLOR}\]@\[${Color_Off}\]"
     PS1+="\[${HOST_COLOR}\]\h\[${Color_Off}\] "
-    PS1+="\[${PATH_COLOR}\]\w\[${Color_Off}\] \n"
+    PS1+="\[${PATH_COLOR}\]\w\[${Color_Off}\] \n\["
     PS1+='$(__prompt_vcs)'
-    PS1+="\[${USER_TYPE_SIGN_COLOR}\]\$\[${Color_Off}\] "
+    PS1+="\]\[${USER_TYPE_SIGN_COLOR}\]\$\[${Color_Off}\] "
 fi
