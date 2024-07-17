@@ -1,36 +1,12 @@
-# license
-snippet apache-2.0
-	/*
-	 * Copyright 2017 Danil Dulin
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
-
 ##
 ## Preprocessor
 # header include guard
-snippet guard
-	#pragma once
-
 snippet once
-	#ifndef ${1:FILENAME}
-	#define $1
-
-	${0}
-
-	#endif // $1
+	#pragma once
 snippet inc
 	#include <${1}>
+snippet incl
+	#include "${1}"
 ##
 ## Main
 snippet main
@@ -237,9 +213,9 @@ snippet cuptr
 # const std::unique_ptr<T>& arg
 snippet cuptrr
 	const std::unique_ptr<${1:T}>& ${2:arg}
-# std::experimental::optional<T> arg
+# std::optional<T> arg
 snippet opt
-	std::experimental::optional<${1:T}> ${2:arg}
+	std::optional<${1:T}> ${2:arg}
 # std::make_shared
 snippet mks
 	std::make_shared<${1:T}>(${2});
@@ -316,22 +292,3 @@ snippet lld
 	[${1}](${2}){
 		${3}
 	};
-##
-## Input/Output
-# std::cout
-snippet cout
-	std::cout << ${1} << std::endl;
-# std::cin
-snippet cin
-	std::cin >> ${1};
-# printf
-snippet pr
-	printf("${1:%s}\n"${2});
-snippet fpr
-	fprintf(${1:stderr}, "${2:%s}\n"${3});
-snippet prd
-	printf("${1:} = %d\n", $1);
-snippet prf
-	printf("${1:} = %f\n", $1);
-snippet prx
-	printf("${1:} = %${2}\n", $1);
