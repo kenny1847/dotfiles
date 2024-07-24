@@ -149,9 +149,10 @@ function __up_vcs {
 }
 
 function __prompt_vcs {
-    VCS_COLOR=${Yellow}
-    VCS_BRACES_COLOR=${Red}
-    VCS_STATUS_COLOR=${Red}
+    VCS_COLOR_OFF="${Color_Off}"
+    VCS_COLOR="${Yellow}"
+    VCS_BRACES_COLOR="${Red}"
+    VCS_STATUS_COLOR="${Red}"
     __prompt_svn=()
     __prompt_git=()
     __prompt_hg=()
@@ -161,55 +162,56 @@ function __prompt_vcs {
     __upwards "$(pwd -P)" __up_vcs
     result=""
     for entry in "${__prompt_svn[@]}"; do
-        result+="${VCS_BRACES_COLOR}(${Color_Off}"
-        result+="${VCS_COLOR}svn:${Color_Off}"
-        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
-        result+="$VCS_BRACES_COLOR)${Color_Off} "
+        result+="${VCS_BRACES_COLOR}(${VCS_COLOR_OFF}"
+        result+="${VCS_COLOR}svn:${VCS_COLOR_OFF}"
+        result+="${VCS_STATUS_COLOR}${entry}${VCS_COLOR_OFF}"
+        result+="${VCS_BRACES_COLOR})${VCS_COLOR_OFF} "
     done
     for entry in "${__prompt_git[@]}"; do
-        result+="${VCS_BRACES_COLOR}(${Color_Off}"
-        result+="${VCS_COLOR}git:${Color_Off}"
-        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
-        result+="$VCS_BRACES_COLOR)${Color_Off} "
+        result+="${VCS_BRACES_COLOR}(${VCS_COLOR_OFF}"
+        result+="${VCS_COLOR}git:${VCS_COLOR_OFF}"
+        result+="${VCS_STATUS_COLOR}${entry}${VCS_COLOR_OFF}"
+        result+="${VCS_BRACES_COLOR})${VCS_COLOR_OFF} "
     done
     for entry in "${__prompt_hg[@]}"; do
-        result+="${VCS_BRACES_COLOR}(${Color_Off}"
-        result+="${VCS_COLOR}hg:${Color_Off}"
-        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
-        result+="$VCS_BRACES_COLOR)${Color_Off} "
+        result+="${VCS_BRACES_COLOR}(${VCS_COLOR_OFF}"
+        result+="${VCS_COLOR}hg:${VCS_COLOR_OFF}"
+        result+="${VCS_STATUS_COLOR}${entry}${VCS_COLOR_OFF}"
+        result+="${VCS_BRACES_COLOR})${VCS_COLOR_OFF} "
     done
     for entry in "${__prompt_arc[@]}"; do
-        result+="${VCS_BRACES_COLOR}(${Color_Off}"
-        result+="${VCS_COLOR}arc:${Color_Off}"
-        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
-        result+="$VCS_BRACES_COLOR)${Color_Off} "
+        result+="${VCS_BRACES_COLOR}(${VCS_COLOR_OFF}"
+        result+="${VCS_COLOR}arc:${VCS_COLOR_OFF}"
+        result+="${VCS_STATUS_COLOR}${entry}${VCS_COLOR_OFF}"
+        result+="${VCS_BRACES_COLOR})${VCS_COLOR_OFF} "
     done
     for entry in "${__prompt_arcanum[@]}"; do
-        result+="${VCS_BRACES_COLOR}(${Color_Off}"
-        result+="${VCS_COLOR}arcanum:${Color_Off}"
-        result+="${VCS_STATUS_COLOR}${entry}${Color_Off}"
-        result+="$VCS_BRACES_COLOR)${Color_Off} "
+        result+="${VCS_BRACES_COLOR}(${VCS_COLOR_OFF}"
+        result+="${VCS_COLOR}arcanum:${VCS_COLOR_OFF}"
+        result+="${VCS_STATUS_COLOR}${entry}${VCS_COLOR_OFF}"
+        result+="${VCS_BRACES_COLOR})${VCS_COLOR_OFF} "
     done
     if [[ ! -z ${result} ]]; then
-        echo -ne "${result}"
+        printf ${result}
     fi
 }
 
 if [[ ! ${use_color} ]]; then
     PS1='\u@\h \w \$ '
 else
-    NAME_COLOR=${Green}
-    AT_COLOR=${Yellow}
-    HOST_COLOR=${Red}
-    PATH_COLOR=${Blue}
-    USER_TYPE_SIGN_COLOR=${Blue}
+    NAME_COLOR="\[${Green}\]"
+    AT_COLOR="\[${Yellow}\]"
+    HOST_COLOR="\[${Red}\]"
+    PATH_COLOR="\[${Blue}\]"
+    USER_TYPE_SIGN_COLOR="\[${Blue}\]"
     if [[ ${EUID} == 0 ]]; then
-        NAME_COLOR=${Red}
+        NAME_COLOR="\[${Red}\]"
     fi
-    PS1="\[${NAME_COLOR}\]\u\[${Color_Off}\]"
-    PS1+="\[${AT_COLOR}\]@\[${Color_Off}\]"
-    PS1+="\[${HOST_COLOR}\]\h\[${Color_Off}\] "
-    PS1+="\[${PATH_COLOR}\]\w\[${Color_Off}\] \n\["
-    PS1+='$(__prompt_vcs)'
-    PS1+="\]\[${USER_TYPE_SIGN_COLOR}\]\$\[${Color_Off}\] "
+    COLOR_OFF="\[${Color_Off}\]"
+    PS1="${NAME_COLOR}\u${COLOR_OFF}"
+    PS1+="${AT_COLOR}@${COLOR_OFF}"
+    PS1+="${HOST_COLOR}\h${COLOR_OFF} "
+    PS1+="${PATH_COLOR}\w${COLOR_OFF} \n"
+    PS1+='\[$(__prompt_vcs)\]'
+    PS1+="${USER_TYPE_SIGN_COLOR}\$${COLOR_OFF} "
 fi
