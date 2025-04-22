@@ -138,6 +138,8 @@ if executable('rg')
 endif
 nnoremap <leader>S :Ack! <C-r><C-w><Space>
 nnoremap <leader>s :Ack! <C-r><C-w><CR>
+vnoremap <leader>S y:Ack! <C-R>"<Space>
+vnoremap <leader>s y:Ack! <C-R>"<Space><CR>
 
 " black
 au FileType python nnoremap <buffer> <leader>mf :Black<CR>
