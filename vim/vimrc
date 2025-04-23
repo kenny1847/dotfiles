@@ -1,6 +1,6 @@
 set showmatch
-set hlsearch
 set incsearch
+set hlsearch
 set number
 set mouse=a
 " set ttymouse=urxvt " disable to fix tmux
@@ -107,6 +107,7 @@ Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdcommenter'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-abolish'
@@ -114,10 +115,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rhysd/vim-clang-format'
-Plug 'tpope/vim-commentary'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ryanoasis/vim-devicons'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-operator-user'
 Plug 'lyuts/vim-rtags'
@@ -236,16 +235,6 @@ let g:airline_symbols.linenr = 'Ξ'
 
 " vim-better-whitespace
 autocmd BufWritePre * StripWhitespace
-
-" vim-commentary
-au FileType cpp.doxygen setlocal commentstring=//\ %s
-au FileType octave setlocal commentstring=#\ %s
-au FileType yql setlocal commentstring=--\ %s
-xmap <leader>c  <Plug>Commentary
-nmap <leader>c  <Plug>Commentary
-omap <leader>c  <Plug>Commentary
-nmap <leader>cc <Plug>CommentaryLine
-nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 " vim-clang-format
 au FileType cpp.doxygen nnoremap <buffer> <Leader>mf :<C-u>ClangFormat<CR>
