@@ -47,6 +47,7 @@ deploy_vim() {
         mkdir ~/.vim/undo
     fi
     cp vim/vimrc ~/.vimrc
+    cp vim/arcadia.vimrc ~/.arcadia.vimrc
     vim -c ":PlugUpgrade | :PlugInstall | :qa"
     set +x
 }

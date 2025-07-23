@@ -79,6 +79,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w <C-w>
 nnoremap <leader>we :tabclose<cr>
+nnoremap <leader>wd :bd<cr>
 nnoremap <silent> <C-n> :nohl<CR>
 nmap <leader>P :pwd<cr>
 nmap <leader>p :cclose<cr>
