@@ -11,5 +11,5 @@ function! GetArcadiaLink()
 endfunction
 nnoremap <leader>V :call GetArcadiaLink()<CR>
 
-nnoremap <leader>ys :!ya style --all %<CR>
-nnoremap <leader>yf :!ya tool tt format %<CR>
+nnoremap <leader>ys :!ya style %<CR>
+nnoremap <leader>yf :!ya style --all %<CR>
