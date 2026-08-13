@@ -7,9 +7,18 @@ if [ -d "${HOME}/.ya.completion/bash/" ]; then
 fi
 
 export ARCADIA_ROOT="${HOME}/arc/arcadia"
+export JUNK="${ARCADIA_ROOT}/junk/kenny1847"
+export usrv_root="${ARCADIA_ROOT}/taxi/uservices"
+export usrv="${usrv_root}/services"
+export ulib="${usrv_root}/libraries"
+
 export YT_PROXY="hahn.yt.yandex.net"
 
 alias ya="${ARCADIA_ROOT}/ya"
 alias yql="ya yql"
 alias yt="ya tool yt"
 alias jq="ya tool jq"
+
+
+alias tt='ya tool tt'
+complete -o nospace -C '~/.taxitool_last_used completion' tt
