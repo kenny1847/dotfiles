@@ -3,8 +3,9 @@
 deploy_bash() {
     echo "Deploying bash"
     set -x
-    cp -r bash/bash ~/.bash
-    cp bash/bashrc ~/.bashrc
+    mkdir -p "${HOME}/.bash"
+    cp -r bash/bash/. "${HOME}/.bash/"
+    cp bash/bashrc "${HOME}/.bashrc"
     set +x
 }
 
