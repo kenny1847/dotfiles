@@ -6,8 +6,8 @@ Deploy Bash and tmux settings on a Linux VM from the repository directory:
 ./deploy.sh bash tmux
 ```
 
-The `default` target includes both. Deploying either `bash` or `tmux` also
-installs `~/.local/bin/refresh-forwarded-agent`. The helper requires Bash,
+The `default` target deploys Bash, Git, Vim, and tmux. Deploying either `bash`
+or `tmux` also installs `~/.local/bin/refresh-forwarded-agent`. The helper requires Bash,
 OpenSSH's `ssh-add`, and GNU coreutils. The tmux hooks were tested with tmux 3.2a.
 
 ## Forwarded SSH agent

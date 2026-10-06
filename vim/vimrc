@@ -3,7 +3,6 @@ set incsearch
 set hlsearch
 set number
 set mouse=a
-" set ttymouse=urxvt " disable to fix tmux
 set encoding=UTF-8
 set laststatus=2
 set backspace=2

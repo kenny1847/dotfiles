@@ -63,14 +63,6 @@ deploy_vim() {
     set +x
 }
 
-deploy_X() {
-    echo "Deploying X"
-    set -x
-    cp X/.xinitrc ~/
-    cp X/.Xresources ~/
-    set +x
-}
-
 declare -a targets=(
     "default"
     "bash"
@@ -79,7 +71,6 @@ declare -a targets=(
     "symlinks"
     "tmux"
     "vim"
-    "X"
 )
 
 if [[ $# -eq 0 ]]; then
@@ -88,7 +79,7 @@ if [[ $# -eq 0 ]]; then
     for tg in "${targets[@]}"; do
        echo "    ${tg}"
     done
-    echo "default target contains: bash git vim tmux X"
+    echo "default target contains: bash git vim tmux"
     echo "bash and tmux also install the forwarded SSH agent helper"
     exit
 fi
@@ -100,7 +91,6 @@ for option in $@; do
         deploy_git
         deploy_vim
         deploy_tmux
-        deploy_X
         ;;
     bash) deploy_bash ;;
     git) deploy_git ;;
@@ -108,7 +98,6 @@ for option in $@; do
     symlinks) deploy_symlinks ;;
     tmux) deploy_tmux ;;
     vim) deploy_vim ;;
-    [xX]) deploy_X ;;
     *) echo "Unknown target" ;;
     esac
 done
