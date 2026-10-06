@@ -1,6 +1,14 @@
 #!/bin/bash
 
+deploy_ssh_agent() {
+    mkdir -p -m 700 "${HOME}/.ssh" || return
+    mkdir -p "${HOME}/.local/bin" || return
+    install -m 700 ssh-agent/refresh-forwarded-agent \
+        "${HOME}/.local/bin/refresh-forwarded-agent"
+}
+
 deploy_bash() {
+    deploy_ssh_agent || return
     echo "Deploying bash"
     set -x
     mkdir -p "${HOME}/.bash"
@@ -36,6 +44,7 @@ deploy_symlinks() {
 }
 
 deploy_tmux() {
+    deploy_ssh_agent || return
     mkdir -p "${HOME}/.tmux"
     cp -r tmux/tmux/. "${HOME}/.tmux/"
     cp tmux/tmux.conf "${HOME}/.tmux.conf"
@@ -79,7 +88,8 @@ if [[ $# -eq 0 ]]; then
     for tg in "${targets[@]}"; do
        echo "    ${tg}"
     done
-    echo "default target contains: bash git vim rtags symlinks X"
+    echo "default target contains: bash git vim tmux X"
+    echo "bash and tmux also install the forwarded SSH agent helper"
     exit
 fi
 

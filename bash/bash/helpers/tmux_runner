@@ -1,6 +1,7 @@
 #!/bin/bash
 
 go-tmux() {
+    source "${HOME}/.bash/forwarded-agent"
     SESSION=dev
     if [[ $# -gt 0 ]]; then
         SESSION=${1}

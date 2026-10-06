@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Keep one SSH_AUTH_SOCK path usable across SSH reconnects and tmux attaches.
+set -u
+
+agent_link="$HOME/.ssh/forwarded-agent.sock"
+session=""
+tmux_socket=""
+socket="${SSH_AUTH_SOCK:-}"
+while (( $# > 0 )); do
+    case "$1" in
+        --session|--tmux-socket|--socket|--link)
+            (( $# >= 2 )) || exit 2
+            case "$1" in
+                --session) session="$2" ;;
+                --tmux-socket) tmux_socket="$2" ;;
+                --socket) socket="$2" ;;
+                --link) agent_link="$2" ;;
+            esac
+            shift 2
+            ;;
+        *) exit 2 ;;
+    esac
+done
+
+# Never replace an existing regular file or directory.
+if [[ -e "$agent_link" && ! -L "$agent_link" ]]; then
+    exit 1
+fi
+
+candidates=()
+if [[ -n "$session" || -n "${TMUX:-}" ]]; then
+    tmux_args=()
+    [[ -z "$tmux_socket" ]] || tmux_args+=(-S "$tmux_socket")
+    tmux_args+=(show-environment)
+    [[ -z "$session" ]] || tmux_args+=(-t "$session")
+    value=$(tmux "${tmux_args[@]}" SSH_AUTH_SOCK 2>/dev/null) || value=""
+    [[ "$value" != SSH_AUTH_SOCK=* ]] || candidates+=("${value#SSH_AUTH_SOCK=}")
+fi
+[[ -z "$socket" ]] || candidates+=("$socket")
+candidates+=("$agent_link")
+
+for candidate in "${candidates[@]}"; do
+    # Resolve aliases before linking, so the stable path cannot point to itself.
+    target=$(readlink -f -- "$candidate" 2>/dev/null) || continue
+    [[ -S "$target" ]] || continue
+    [[ $(stat -Lc '%u' -- "$target" 2>/dev/null) == "$UID" ]] || continue
+    SSH_AUTH_SOCK="$target" timeout 3s ssh-add -l >/dev/null 2>&1 || continue
+    [[ $(readlink -- "$agent_link" 2>/dev/null) != "$target" ]] || exit 0
+
+    # Rename within the same directory makes the link update atomic.
+    link_dir=$(dirname -- "$agent_link")
+    temporary_dir=$(mktemp -d "$link_dir/.forwarded-agent.XXXXXX") || exit 1
+    ln -s -- "$target" "$temporary_dir/agent" || exit 1
+    mv -Tf -- "$temporary_dir/agent" "$agent_link" || exit 1
+    rmdir -- "$temporary_dir"
+    exit 0
+done
+
+exit 1

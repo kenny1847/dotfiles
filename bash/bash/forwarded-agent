@@ -1,0 +1,4 @@
+# Refresh from the incoming SSH connection or the current tmux session.
+if "$HOME/.local/bin/refresh-forwarded-agent" >/dev/null 2>&1; then
+    export SSH_AUTH_SOCK="$HOME/.ssh/forwarded-agent.sock"
+fi
