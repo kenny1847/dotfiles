@@ -36,8 +36,9 @@ deploy_symlinks() {
 }
 
 deploy_tmux() {
-    cp -r tmux/tmux ~/.tmux
-    cp tmux/tmux.conf ~/.tmux.conf
+    mkdir -p "${HOME}/.tmux"
+    cp -r tmux/tmux/. "${HOME}/.tmux/"
+    cp tmux/tmux.conf "${HOME}/.tmux.conf"
 }
 
 deploy_vim() {
