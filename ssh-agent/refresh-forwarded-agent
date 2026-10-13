@@ -6,8 +6,13 @@ agent_link="$HOME/.ssh/forwarded-agent.sock"
 session=""
 tmux_socket=""
 socket="${SSH_AUTH_SOCK:-}"
+missing_agent_status=1
 while (( $# > 0 )); do
     case "$1" in
+        --optional)
+            missing_agent_status=0
+            shift
+            ;;
         --session|--tmux-socket|--socket|--link)
             (( $# >= 2 )) || exit 2
             case "$1" in
@@ -21,6 +26,41 @@ while (( $# > 0 )); do
         *) exit 2 ;;
     esac
 done
+
+resolve_socket() (
+    agent_path="$1"
+    depth=0
+    while [[ -L "$agent_path" ]]; do
+        (( depth += 1 ))
+        (( depth <= 40 )) || return 1
+        target_link=$(readlink -- "$agent_path") || return 1
+        case "$target_link" in
+            /*) agent_path="$target_link" ;;
+            *) agent_path="$(dirname -- "$agent_path")/$target_link" ;;
+        esac
+    done
+    cd -P -- "$(dirname -- "$agent_path")" || return 1
+    printf '%s/%s\n' "$PWD" "$(basename -- "$agent_path")"
+)
+
+agent_is_available() {
+    SSH_AUTH_SOCK="$1" ssh-add -l >/dev/null 2>&1 &
+    local probe_pid=$!
+    # A background wait lets the watchdog stop its timer promptly on TERM.
+    (
+        sleep 3 &
+        timer_pid=$!
+        trap 'kill "$timer_pid" 2>/dev/null; exit 0' TERM
+        wait "$timer_pid"
+        kill "$probe_pid" 2>/dev/null
+    ) >/dev/null 2>&1 &
+    local watchdog_pid=$!
+    wait "$probe_pid" 2>/dev/null
+    local probe_status=$?
+    kill "$watchdog_pid" 2>/dev/null
+    wait "$watchdog_pid" 2>/dev/null
+    return "$probe_status"
+}
 
 # Never replace an existing regular file or directory.
 if [[ -e "$agent_link" && ! -L "$agent_link" ]]; then
@@ -41,19 +81,23 @@ candidates+=("$agent_link")
 
 for candidate in "${candidates[@]}"; do
     # Resolve aliases before linking, so the stable path cannot point to itself.
-    target=$(readlink -f -- "$candidate" 2>/dev/null) || continue
-    [[ -S "$target" ]] || continue
-    [[ $(stat -Lc '%u' -- "$target" 2>/dev/null) == "$UID" ]] || continue
-    SSH_AUTH_SOCK="$target" timeout 3s ssh-add -l >/dev/null 2>&1 || continue
+    target=$(resolve_socket "$candidate" 2>/dev/null) || continue
+    [[ -S "$target" && -O "$target" ]] || continue
+    agent_is_available "$target" || continue
     [[ $(readlink -- "$agent_link" 2>/dev/null) != "$target" ]] || exit 0
 
     # Rename within the same directory makes the link update atomic.
     link_dir=$(dirname -- "$agent_link")
     temporary_dir=$(mktemp -d "$link_dir/.forwarded-agent.XXXXXX") || exit 1
+    trap 'rm -rf -- "$temporary_dir"' EXIT
     ln -s -- "$target" "$temporary_dir/agent" || exit 1
-    mv -Tf -- "$temporary_dir/agent" "$agent_link" || exit 1
-    rmdir -- "$temporary_dir"
+    case "$OSTYPE" in
+        darwin*) mv -fh -- "$temporary_dir/agent" "$agent_link" || exit 1 ;;
+        *) mv -Tf -- "$temporary_dir/agent" "$agent_link" || exit 1 ;;
+    esac
+    rmdir -- "$temporary_dir" || exit 1
+    trap - EXIT
     exit 0
 done
 
-exit 1
+exit "$missing_agent_status"

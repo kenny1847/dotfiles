@@ -8,7 +8,8 @@ Deploy Bash and tmux settings on a Linux VM from the repository directory:
 
 The `default` target deploys Bash, Git, Vim, and tmux. Deploying either `bash`
 or `tmux` also installs `~/.local/bin/refresh-forwarded-agent`. The helper requires Bash,
-OpenSSH's `ssh-add`, and GNU coreutils. The tmux hooks were tested with tmux 3.2a.
+OpenSSH's `ssh-add`, and standard system utilities on Linux or macOS. Agent
+checks have a three-second deadline without requiring GNU `timeout`.
 
 ## Forwarded SSH agent
 
@@ -17,7 +18,9 @@ Connect to the VM with SSH agent forwarding enabled. Bash and `go-tmux` set
 tmux session creation, attachment, and switching. The helper checks that the
 socket belongs to the current user and that `ssh-add -l` succeeds, then replaces
 the link atomically. An unavailable agent leaves the current link unchanged.
-No keys or machine-specific socket paths are stored in the repository.
+No keys or machine-specific socket paths are stored in the repository. The
+tmux hooks use `--optional`: an unavailable agent leaves the link unchanged
+and does not display a failed-command message when switching sessions.
 
 After deploying into an existing environment, load the shell setup once:
 
